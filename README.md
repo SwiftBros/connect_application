@@ -9,6 +9,9 @@ https://medium.com/@maison.moa/setting-up-an-express-backend-server-for-create-r
 url for firebase setup
 https://firebase.google.com/docs/web/setup
 
+How to use Bootstrap with React
+https://react-bootstrap.github.io/getting-started/introduction/
+
 ## Tech Stack
 
 - Firebase

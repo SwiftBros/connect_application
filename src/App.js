@@ -72,8 +72,12 @@ export default class App extends React.Component {
   }
 }
 
-function Home() {
-  return <h2>Home</h2>;
+class Home extends React.Component {
+  render() {
+    return (
+      <h2>Home</h2>;
+    );
+  }
 }
 
 function About() {
