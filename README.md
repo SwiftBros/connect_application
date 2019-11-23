@@ -6,6 +6,9 @@ https://medium.com/@maison.moa/setting-up-an-express-backend-server-for-create-r
 
 - Rageeb Commit
 
+url for firebase setup
+https://firebase.google.com/docs/web/setup
+
 ## Tech Stack
 
 - Firebase
