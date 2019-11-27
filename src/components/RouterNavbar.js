@@ -1,5 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem , Form, FormControl, Button} from 'react-bootstrap';
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -9,6 +7,8 @@ import {
   useRouteMatch,
   useParams
 } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem , Form, FormControl, Button} from 'react-bootstrap';
 import { Jobs } from './jobs.jsx';
 
 class RouterNavbar extends React.Component {
