@@ -10,6 +10,7 @@ import {
   useParams
 } from "react-router-dom";
 import { Jobs } from './jobs.jsx';
+import { Login } from './login.jsx';
 
 class RouterNavbar extends React.Component {
     render() {
@@ -25,9 +26,7 @@ class RouterNavbar extends React.Component {
             <Navbar bg="light" expand="lg">
             <Navbar.Brand href="#home">
             <li>
-              <Link to="/">
-                Connect
-              </Link>
+            <Link to="/">Connect</Link>
             </li>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -51,7 +50,7 @@ class RouterNavbar extends React.Component {
             </Nav.Link>
             <Nav.Link href="#link">
             <li>
-            <Link to="/topics">Login</Link>
+            <Link to="/Login">Login</Link>
             </li>
             </Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
@@ -72,6 +71,9 @@ class RouterNavbar extends React.Component {
         </div>
 
         <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
           <Route path="/about">
             <About />
           </Route>
@@ -81,8 +83,8 @@ class RouterNavbar extends React.Component {
           <Route path="/jobs">
             <Jobs />
           </Route>
-          <Route path="/">
-            <Home />
+          <Route path="/login">
+            <Login />
           </Route>
         </Switch>
       </div>
