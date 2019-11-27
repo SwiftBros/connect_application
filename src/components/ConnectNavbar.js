@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 
 class ConnectNavbar extends React.Component {
-  render() {
+    render() {
     return (
       <Navbar bg="light" expand="lg">
       <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>

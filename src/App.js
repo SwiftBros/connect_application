@@ -26,7 +26,7 @@ export default class App extends React.Component {
       <div>
         <div>
             <ul style={navbarStyle}>
-                <ConnectNavbar/>
+                <ConnectNavbar />
             </ul>
         </div>
 
@@ -56,6 +56,10 @@ export default class App extends React.Component {
 // integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 // crossorigin="anonymous"/>
 class Home extends React.Component {
+  componentDidMount() {
+    console.log("JS CODE RUNNING ON HOME PAGE")
+  }
+
   render() {
     return (
       <div>
