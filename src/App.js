@@ -13,113 +13,55 @@ import {
 } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import { Jobs }from './jobs';
+import ConnectNavbar from './components/ConnectNavbar.js';
 
 export default class App extends React.Component {
   render() {
+    var navbarStyle = {
+        // For navbar left-padding
+        paddingInlineStart: 0,
+    };
     return (
       <Router>
+      <div>
         <div>
-          <div>
-          <ul>
-          <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-          <Nav.Link href="#home">
-          <li>
-              <Link to="/">Home</Link>
-          </li>
-          </Nav.Link>
-          <Nav.Link href="#link">
-          <li>
-              <Link to="/about">About</Link>
-          </li>
-          </Nav.Link>
-          <Nav.Link href="#link">
-          <li>
-              <Link to="/jobs">Jobs</Link>
-          </li>
-          </Nav.Link>
-          <Nav.Link href="#link">
-          <li>
-              <Link to="/topics">Topics</Link>
-          </li>
-          </Nav.Link>
-          <Nav.Link href="#link">
-            <li>
-                <Link to="/topics">Login</Link>
-            </li>
-          </Nav.Link>
-          <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-          <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-          <NavDropdown.Divider />
-          <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-          </NavDropdown>
-          </Nav>
-          <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-success">Search</Button>
-          </Form>
-          </Navbar.Collapse>
-          </Navbar>
-          </ul>
-      </div>
-          
-
-          <Switch>
-            <Route path="/about">
-              <About />
-            </Route>
-            <Route path="/topics">
-              <Topics />
-            </Route>
-            <Route path="/jobs">
-              <Jobs />
-            </Route>
-            <Route path="/">
-              <Home />
-            </Route>
-          </Switch>
+            <ul style={navbarStyle}>
+                <ConnectNavbar/>
+            </ul>
         </div>
+
+        <Switch>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/topics">
+            <Topics />
+          </Route>
+          <Route path="/jobs">
+            <Jobs />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </div>
       </Router>
     );
   }
 }
 
-/*
-
-<ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/jobs">Jobs</Link>
-            </li>
-            <li>
-              <Link to="/topics">Topics</Link>
-            </li>
-</ul>
-
-*/
-
+// <link
+// rel="stylesheet"
+// href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+// integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+// crossorigin="anonymous"/>
 class Home extends React.Component {
   render() {
     return (
       <div>
-      <link
-  rel="stylesheet"
-  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-  crossorigin="anonymous"
-/>
 
-      <h2>Home</h2>;
+
+      <h2>Home</h2>
       <Button variant="primary">Click</Button>
       </div>
     );
@@ -130,27 +72,7 @@ class About extends React.Component {
   render() {
     return (
       <div>
-      <Navbar bg="light" expand="lg">
-  <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-  <Navbar.Toggle aria-controls="basic-navbar-nav" />
-  <Navbar.Collapse id="basic-navbar-nav">
-    <Nav className="mr-auto">
-      <Nav.Link href="#home">Home</Nav.Link>
-      <Nav.Link href="#link">Link</Nav.Link>
-      <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-        <NavDropdown.Divider />
-        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-      </NavDropdown>
-    </Nav>
-    <Form inline>
-      <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-      <Button variant="outline-success">Search</Button>
-    </Form>
-  </Navbar.Collapse>
-</Navbar>
+        <h1>HELLO WORLD</h1>
       </div>
     );
   }
