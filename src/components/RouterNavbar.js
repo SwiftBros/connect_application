@@ -23,15 +23,17 @@ class RouterNavbar extends React.Component {
         <div>
             <ul style={navbarStyle}>
             <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+            <Navbar.Brand href="#home">
+            <li>
+              <Link to="/">
+                Connect
+              </Link>
+            </li>
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-            <Nav.Link href="#home">
-            <li>
-            <Link to="/">Home</Link>
-            </li>
-            </Nav.Link>
+
             <Nav.Link href="#link">
             <li>
             <Link to="/about">About</Link>
@@ -109,7 +111,7 @@ class About extends React.Component {
   render() {
     return (
       <div>
-        <h1>HELLO WORLD</h1>
+        <h1>ABOUT PAGE</h1>
       </div>
     );
   }
