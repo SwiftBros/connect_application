@@ -1,3 +1,5 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem , Form, FormControl, Button} from 'react-bootstrap';
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -7,10 +9,7 @@ import {
   useRouteMatch,
   useParams
 } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem , Form, FormControl, Button} from 'react-bootstrap';
 import { Jobs } from './jobs.jsx';
-import { Login } from './login.jsx';
 
 class RouterNavbar extends React.Component {
     render() {
@@ -50,7 +49,7 @@ class RouterNavbar extends React.Component {
             </Nav.Link>
             <Nav.Link href="#link">
             <li>
-            <Link to="/login">Login</Link>
+            <Link to="/topics">Login</Link>
             </li>
             </Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
@@ -71,20 +70,17 @@ class RouterNavbar extends React.Component {
         </div>
 
         <Switch>
-          <Route path="/">
-            <Home />
-          </Route>
           <Route path="/about">
             <About />
-          </Route>
-           <Route path="/jobs">
-            <Jobs />
           </Route>
           <Route path="/topics">
             <Topics />
           </Route>
-          <Route path="/login">
-            <Login />
+          <Route path="/jobs">
+            <Jobs />
+          </Route>
+          <Route path="/">
+            <Home />
           </Route>
         </Switch>
       </div>
