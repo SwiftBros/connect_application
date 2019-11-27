@@ -1,31 +1,4 @@
-// import React from 'react';
-// import logo from './logo.svg';
-// import './App.css';
 
-
-
-// class App extends React.Component {
-//   render() {
-//     return (
-//       <div className="App">
-//         <header className="App-header">
-//           <img src={logo} className="App-logo" alt="logo" />
-//           <p>
-//             Edit <code>src/App.js</code> and save to reload.
-//           </p>
-//           <a
-//             className="App-link"
-//             href="https://reactjs.org"
-//             target="_blank"
-//             rel="noopener noreferrer"
-//           >
-//             Learn React
-//           </a>
-//         </header>
-//       </div>
-//     );
-//   }
-// }
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem , Form, FormControl} from 'react-bootstrap';
@@ -39,23 +12,62 @@ import {
   useParams
 } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
+import { Jobs }from './jobs';
 
 export default class App extends React.Component {
   render() {
     return (
       <Router>
         <div>
+          <div>
           <ul>
-            <li>
+          <Navbar bg="light" expand="lg">
+          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+          <Nav.Link href="#home">
+          <li>
               <Link to="/">Home</Link>
-            </li>
-            <li>
+          </li>
+          </Nav.Link>
+          <Nav.Link href="#link">
+          <li>
               <Link to="/about">About</Link>
-            </li>
-            <li>
+          </li>
+          </Nav.Link>
+          <Nav.Link href="#link">
+          <li>
+              <Link to="/jobs">Jobs</Link>
+          </li>
+          </Nav.Link>
+          <Nav.Link href="#link">
+          <li>
               <Link to="/topics">Topics</Link>
+          </li>
+          </Nav.Link>
+          <Nav.Link href="#link">
+            <li>
+                <Link to="/topics">Login</Link>
             </li>
+          </Nav.Link>
+          <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+          <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+          <NavDropdown.Divider />
+          <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+          </NavDropdown>
+          </Nav>
+          <Form inline>
+          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+          <Button variant="outline-success">Search</Button>
+          </Form>
+          </Navbar.Collapse>
+          </Navbar>
           </ul>
+      </div>
+          
 
           <Switch>
             <Route path="/about">
@@ -63,6 +75,9 @@ export default class App extends React.Component {
             </Route>
             <Route path="/topics">
               <Topics />
+            </Route>
+            <Route path="/jobs">
+              <Jobs />
             </Route>
             <Route path="/">
               <Home />
@@ -73,6 +88,25 @@ export default class App extends React.Component {
     );
   }
 }
+
+/*
+
+<ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/jobs">Jobs</Link>
+            </li>
+            <li>
+              <Link to="/topics">Topics</Link>
+            </li>
+</ul>
+
+*/
 
 class Home extends React.Component {
   render() {
@@ -121,6 +155,17 @@ class About extends React.Component {
     );
   }
 }
+
+// export class Jobs extends React.Component {
+//   render() {
+//     return (
+//       <div>
+//         <h1>This is the jobs page.</h1>
+//         fadsf
+//       </div>
+//     );
+//   }
+// }
 
 function Topics() {
   let match = useRouteMatch();
