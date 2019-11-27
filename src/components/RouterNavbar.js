@@ -26,7 +26,7 @@ class RouterNavbar extends React.Component {
             <Navbar bg="light" expand="lg">
             <Navbar.Brand href="#home">
             <li>
-            <Link to="/">Connect</Link>
+              <Link to="/">Connect</Link>
             </li>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -35,22 +35,22 @@ class RouterNavbar extends React.Component {
 
             <Nav.Link href="#link">
             <li>
-            <Link to="/about">About</Link>
+              <Link to="/about">About</Link>
             </li>
             </Nav.Link>
             <Nav.Link href="#link">
             <li>
-            <Link to="/jobs">Jobs</Link>
+              <Link to="/jobs">Jobs</Link>
             </li>
             </Nav.Link>
             <Nav.Link href="#link">
             <li>
-            <Link to="/topics">Topics</Link>
+              <Link to="/topics">Topics</Link>
             </li>
             </Nav.Link>
             <Nav.Link href="#link">
             <li>
-            <Link to="/Login">Login</Link>
+              <Link to="/Login">Login</Link>
             </li>
             </Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
@@ -71,21 +71,11 @@ class RouterNavbar extends React.Component {
         </div>
 
         <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/topics">
-            <Topics />
-          </Route>
-          <Route path="/jobs">
-            <Jobs />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
+          <Route exact path="/" component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/topics" component={Topics} />
+          <Route path="/jobs" component={Jobs} />
+          <Route path="/login" component={Login} />
         </Switch>
       </div>
       </Router>
@@ -94,6 +84,23 @@ class RouterNavbar extends React.Component {
   }
 }
 
+// <Switch>
+//   <Route exact path="/">
+//     <Home />
+//   </Route>
+//   <Route path="/about">
+//     <About />
+//   </Route>
+//   <Route path="/topics">
+//     <Topics />
+//   </Route>
+//   <Route path="/jobs">
+//     <Jobs />
+//   </Route>
+//   <Route path="/login">
+//     <Login />
+//   </Route>
+// </Switch>
 class Home extends React.Component {
   componentDidMount() {
     console.log("JS CODE RUNNING ON HOME PAGE")
