@@ -72,6 +72,24 @@
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
       firebase.analytics();
+
+      console.log("CONNECTED TO FIREBASE!!!!");
+
+      // Read from firebase
+      var db = firebase.database();
+      var usersRef = db.ref('users/');
+      usersRef.on('value', function(snapshot) {
+        snapshot.forEach(function(snapshotRef) {
+          var val = snapshotRef.val();
+          var company = val["company"];
+          var name = val["name"];
+          console.log("Name: " + name);
+          console.log("Company: " + company);
+          console.log("------------------------")
+        });
+      }, function(errorObj) {
+        console.log("The read failed: " + errorObj.code);
+      });
     </script>
   </body>
 </html>
