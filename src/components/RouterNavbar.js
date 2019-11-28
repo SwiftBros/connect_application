@@ -25,9 +25,7 @@ class RouterNavbar extends React.Component {
             <ul style={navbarStyle}>
             <Navbar bg="light" expand="lg">
             <Navbar.Brand href="#home">
-            <li>
-              <Link to="/">Connect</Link>
-            </li>
+            <Link className="text-dark font-weight-bold" to="/">Connect</Link>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
