@@ -23,11 +23,11 @@ class RouterNavbar extends React.Component {
     return (
       <Router>
       <div>
-        <div>
-            <ul style={navbarStyle}>
+        <div className="">
+            <ul style={navbarStyle} className="mb-0">
             <Navbar bg="light" expand="lg">
             <Navbar.Brand href="#home">
-            <Link className="text-dark font-weight-bold" to="/">Connect</Link>
+            <Link className="text-info font-weight-bold" to="/">CONNECT</Link>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
@@ -35,25 +35,25 @@ class RouterNavbar extends React.Component {
 
             <Nav.Link href="#link">
             <li>
-              <Link to="/about">About</Link>
+              <Link className="text-dark" to="/about">About</Link>
             </li>
             </Nav.Link>
             <Nav.Link href="#link">
             <li>
-              <Link to="/jobs">Jobs</Link>
+              <Link className="text-dark" to="/jobs">Jobs</Link>
             </li>
             </Nav.Link>
             <Nav.Link href="#link">
             <li>
-              <Link to="/topics">Topics</Link>
+              <Link className="text-dark" to="/topics">Topics</Link>
             </li>
             </Nav.Link>
-            <Nav.Link className="btn btn-danger ml-2r" href="#link">
+            <Nav.Link className="btn btn-outline-info" href="#link">
             <li>
-              <Link className="text-light" to="/login">Login</Link>
+              <Link className="text-info" to="/login">Login</Link>
             </li>
             </Nav.Link>
-            <Nav.Link className="btn btn-danger ml-2" href="#link">
+            <Nav.Link className="btn btn-info ml-2" href="#link">
             <li>
               <Link className="text-light" to="/signup">Sign Up</Link>
             </li>
