@@ -31,7 +31,7 @@ class RouterNavbar extends React.Component {
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
+            <Nav className="ml-auto">
 
             <Nav.Link href="#link">
             <li>
@@ -48,14 +48,14 @@ class RouterNavbar extends React.Component {
               <Link to="/topics">Topics</Link>
             </li>
             </Nav.Link>
-            <Nav.Link href="#link">
+            <Nav.Link className="btn btn-outline-danger" href="#link">
             <li>
-              <Link to="/login">Login</Link>
+              <Link className="text-danger" to="/login">Login</Link>
             </li>
             </Nav.Link>
-            <Nav.Link href="#link">
+            <Nav.Link className="btn btn-danger ml-2" href="#link">
             <li>
-              <Link to="/signup">Sign Up</Link>
+              <Link className="text-light" to="/signup">Sign Up</Link>
             </li>
             </Nav.Link>
             </Nav>
