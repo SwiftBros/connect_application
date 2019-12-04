@@ -48,9 +48,9 @@ class RouterNavbar extends React.Component {
               <Link to="/topics">Topics</Link>
             </li>
             </Nav.Link>
-            <Nav.Link className="btn btn-outline-danger" href="#link">
+            <Nav.Link className="btn btn-danger ml-2r" href="#link">
             <li>
-              <Link className="text-danger" to="/login">Login</Link>
+              <Link className="text-light" to="/login">Login</Link>
             </li>
             </Nav.Link>
             <Nav.Link className="btn btn-danger ml-2" href="#link">
