@@ -23,11 +23,11 @@ class RouterNavbar extends React.Component {
     return (
       <Router>
       <div>
-        <div>
+        <div className="">
             <ul style={navbarStyle} className="mb-0">
             <Navbar bg="light" expand="lg">
             <Navbar.Brand href="#home">
-            <Link className="text-primary font-weight-bold" to="/">Connect</Link>
+            <Link className="text-info font-weight-bold" to="/">CONNECT</Link>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
