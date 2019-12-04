@@ -12,6 +12,7 @@ import {
 import { Jobs } from './jobs.jsx';
 import { Login } from './login.jsx';
 import { HomePage } from './HomePage.js';
+import { SignUp } from './signup.jsx';
 
 class RouterNavbar extends React.Component {
     render() {
@@ -49,7 +50,12 @@ class RouterNavbar extends React.Component {
             </Nav.Link>
             <Nav.Link href="#link">
             <li>
-              <Link to="/Login">Login</Link>
+              <Link to="/login">Login</Link>
+            </li>
+            </Nav.Link>
+            <Nav.Link href="#link">
+            <li>
+              <Link to="/signup">Sign Up</Link>
             </li>
             </Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
@@ -72,9 +78,10 @@ class RouterNavbar extends React.Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/about" component={About} />
-          <Route path="/topics" component={Topics} />
           <Route path="/jobs" component={Jobs} />
+          <Route path="/topics" component={Topics} />
           <Route path="/login" component={Login} />
+          <Route path="/signup" component={SignUp} />
         </Switch>
       </div>
       </Router>
