@@ -12,6 +12,9 @@ https://firebase.google.com/docs/web/setup
 How to use Bootstrap with React
 https://react-bootstrap.github.io/getting-started/introduction/
 
+Joyce's Mockups
+https://xd.adobe.com/view/af83ce17-1f07-4f05-78fc-62f9d5cf76bc-d9b2/
+
 ## Tech Stack
 
 - Firebase

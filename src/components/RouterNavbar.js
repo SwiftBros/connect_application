@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import { Jobs } from './jobs.jsx';
 import { Login } from './login.jsx';
+import { HomePage } from './HomePage.js';
 
 class RouterNavbar extends React.Component {
     render() {
@@ -106,10 +107,7 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div>
-      <h2>Home</h2>
-      <Button variant="primary">Click</Button>
-      </div>
+      <HomePage />
     );
   }
 }
