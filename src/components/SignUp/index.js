@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import * as ROUTES from '../../constants/routes';
+// import * as ROUTES from '../../constants/routes';
 
 const INITIAL_STATE = {
 username: '',

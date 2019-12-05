@@ -3,8 +3,16 @@
 
 /* global gapi */
 import React, {Component} from 'react';
-// import logo from './logo.svg';
-// import './App.css';
+import { FirebaseContext } from './Firebase';
+
+const SomeComponent = () => (
+	<FirebaseContext.Consumer>
+		{firebase => {
+		return <div>I've access to Firebase and render something.</div>;
+		}}
+	</FirebaseContext.Consumer>
+);
+export default SomeComponent;
 
 
 export class Login extends Component {
@@ -97,9 +105,18 @@ export class Login extends Component {
     })
   }
 
+  onLogout() {
+
+  }
+
   getContent() {
     if (this.state.isSignedIn) {
-      return <p>hello {this.state.user}, you're signed in </p>
+      return (
+      	<div>
+      	<p>hello {this.state.user}, you're signed in </p>
+      	<button id="logoutButton">Sign Out</button>
+      	</div>
+      );
     } else {
       return (
         <div>
@@ -108,13 +125,13 @@ export class Login extends Component {
         </div>
       )
     }
-    
   }
   
   render() {
     return (      
       <div className="App">
         <header className="App-header">
+        <SomeComponent />
           <h2>Sample App.</h2>
           {this.getContent()}           
         </header>

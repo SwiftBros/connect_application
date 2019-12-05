@@ -32,7 +32,6 @@ class RouterNavbar extends React.Component {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
-
             <Nav.Link href="#link">
             <li>
               <Link className="text-dark" to="/about">About</Link>
