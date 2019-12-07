@@ -6,11 +6,13 @@ class JobHeader extends React.Component {
 		return (
 			<div className="text-center">
 				<h1>Job Board</h1>
-				<div style={{display: 'flex', justifyContent: 'center'}}>
+				<div className="d-flex justify-content-center mr-3">
 					<Form className="form-inline">
 						<Form.Control type="text" placeholder="Search" />
-						<Button variant="outline-success">Search</Button>
+						<Button className="ml-1" variant="outline-success">Search</Button>
 					</Form>
+
+					<Button className="ml-3" variant="primary">Post a job</Button>
 				</div>
 			</div>
 		);
@@ -49,7 +51,7 @@ class JobPosting extends React.Component {
 			fontSize: '18px',
 			fontWeight:'bold'
 		};
-		
+
 		// TODO: Make this dynamic using props and state
 		function LearnMore() {
 		  const [show, setShow] = React.useState(false);
