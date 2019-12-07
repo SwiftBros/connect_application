@@ -15,6 +15,7 @@ import { HomePage } from './HomePage.js';
 import SignUpPage from './signup.jsx';
 import SignOutButton from './signout.jsx';
 import { AuthUserContext } from './Session';
+import {test} from './test.js'
 
 const Navigation = () => (
   <AuthUserContext.Consumer>
@@ -73,7 +74,7 @@ const NavigationAuth = () => {
 
           <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/about" component={About} />
+          <Route path="/about" component={test} />
           <Route path="/jobs" component={Jobs} />
           <Route path="/topics" component={Topics} />
           <Route path="/signout" component={SignOutButton} />
@@ -134,7 +135,7 @@ const NavigationAuth = () => {
 
           <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/about" component={About} />
+          <Route path="/about" component={test} />
           <Route path="/jobs" component={Jobs} />
           <Route path="/topics" component={Topics} />
           <Route path="/login" component={SignInPage} />
