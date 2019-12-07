@@ -1,7 +1,6 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 
-
 const prodConfig = {
 	apiKey: process.env.REACT_APP_API_KEY,
 	authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -62,5 +61,8 @@ class Firebase {
 	doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
 }
 
+// firebase.initializeApp(config);
+// const dbRef = firebase.database().ref();
+// export const jobsRef = dbRef.child("jobs/");
 
 export default Firebase;

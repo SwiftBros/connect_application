@@ -1,16 +1,19 @@
 import React from "react";
 import { Row, Col, Form, FormControl, Button, Container, Modal } from 'react-bootstrap';
+import { jobsRef } from './Firebase/firebase.js';
 
+
+// TODO: Connect this to firebase
+// TODO: Link submit button to <Form> component
 class JobHeader extends React.Component {
 	render() {
-		// TODO: Connect this to firebase
+
 		function PostAJob() {
 		  const [show, setShow] = React.useState(false);
 
 		  const handleClose = () => setShow(false);
 		  const handleShow = () => setShow(true);
 
-			// TODO: Link submit button to <Form> component
 		  return (
 		    <>
 					<Button className="ml-3" variant="primary" onClick={handleShow}>Create a job posting</Button>
@@ -77,6 +80,7 @@ class JobHeader extends React.Component {
 	}
 }
 
+// TODO: Make this dynamic using props and state
 class JobPosting extends React.Component {
 	render() {
 		var posterName = {
@@ -110,7 +114,6 @@ class JobPosting extends React.Component {
 			fontWeight:'bold'
 		};
 
-		// TODO: Make this dynamic using props and state
 		function LearnMore() {
 		  const [show, setShow] = React.useState(false);
 
