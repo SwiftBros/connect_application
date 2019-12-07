@@ -10,7 +10,7 @@ import {
   useParams
 } from "react-router-dom";
 import { Jobs } from './jobs.jsx';
-import { Login } from './login.jsx';
+import SignInPage from './login.jsx';
 import { HomePage } from './HomePage.js';
 import SignUpPage from './signup.jsx';
 
@@ -68,7 +68,7 @@ class RouterNavbar extends React.Component {
           <Route path="/about" component={About} />
           <Route path="/jobs" component={Jobs} />
           <Route path="/topics" component={Topics} />
-          <Route path="/login" component={Login} />
+          <Route path="/login" component={SignInPage} />
           <Route path="/signup" component={SignUpPage} />
         </Switch>
       </div>
