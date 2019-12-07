@@ -13,6 +13,7 @@ import { Jobs } from './jobs.jsx';
 import SignInPage from './login.jsx';
 import { HomePage } from './HomePage.js';
 import SignUpPage from './signup.jsx';
+import SignOutButton from './signout.jsx';
 
 class RouterNavbar extends React.Component {
     render() {
@@ -57,6 +58,11 @@ class RouterNavbar extends React.Component {
               <Link className="text-light" to="/signup">Sign Up</Link>
             </li>
             </Nav.Link>
+            <Nav.Link className="btn btn-info ml-2" href="#link">
+            <li>
+              <Link className="text-light" to="/signout">Sign Out</Link>
+            </li>
+            </Nav.Link>
             </Nav>
             </Navbar.Collapse>
             </Navbar>
@@ -70,6 +76,7 @@ class RouterNavbar extends React.Component {
           <Route path="/topics" component={Topics} />
           <Route path="/login" component={SignInPage} />
           <Route path="/signup" component={SignUpPage} />
+          <Route path="/signout" component={SignOutButton} />
         </Switch>
       </div>
       </Router>
