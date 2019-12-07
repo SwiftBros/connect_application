@@ -9,7 +9,7 @@ import {
   useRouteMatch,
   useParams
 } from "react-router-dom";
-import { Jobs } from './jobs.jsx';
+import { Jobs, jobsDBRef } from './jobs.jsx';
 import SignInPage from './login.jsx';
 import { HomePage } from './HomePage.js';
 import SignUpPage from './signup.jsx';
@@ -75,7 +75,7 @@ const NavigationAuth = () => {
           <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/about" component={test} />
-          <Route path="/jobs" component={Jobs} />
+          <Route path="/jobs" component={jobsDBRef} />
           <Route path="/topics" component={Topics} />
           <Route path="/signout" component={SignOutButton} />
           </Switch>
@@ -136,7 +136,7 @@ const NavigationAuth = () => {
           <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/about" component={test} />
-          <Route path="/jobs" component={Jobs} />
+          <Route path="/jobs" component={jobsDBRef} />
           <Route path="/topics" component={Topics} />
           <Route path="/login" component={SignInPage} />
           <Route path="/signup" component={SignUpPage} />

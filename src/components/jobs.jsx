@@ -2,30 +2,30 @@ import React from "react";
 import { Row, Col, Form, FormControl, Button, Container, Modal } from 'react-bootstrap';
 import { FirebaseContext, withFirebase } from './Firebase';
 
-class Wrapper extends React.Component {
-	constructor(props) {
-		super(props);
-	}
+// class Wrapper extends React.Component {
+// 	constructor(props) {
+// 		super(props);
+// 	}
 
-	render(){
-		console.log("INSIDE JOBS WRAPPER");
-		const jobsRef = this.props.firebase.db.ref('jobs');
-		jobsRef.on('value', function(snapshot) {
-			snapshot.forEach(function(snapshotRef) {
-				var val = snapshotRef.val();
+// 	render(){
+// 		console.log("INSIDE JOBS WRAPPER");
+// 		const jobsRef = this.props.firebase.db.ref('jobs');
+// 		jobsRef.on('value', function(snapshot) {
+// 			snapshot.forEach(function(snapshotRef) {
+// 				var val = snapshotRef.val();
 
-				console.log(val);
-			});
-		}, function(errorObj) {
-			console.log("The read failed: " + errorObj.code);
-		});
+// 				console.log(val);
+// 			});
+// 		}, function(errorObj) {
+// 			console.log("The read failed: " + errorObj.code);
+// 		});
 
-		return (
-			<div>TEST WRAPPER</div>
-		)
-	}
-}
-export const testWrapper = withFirebase(Wrapper);
+// 		return (
+// 			<div>TEST WRAPPER</div>
+// 		)
+// 	}
+// }
+// export const testWrapper = withFirebase(Wrapper);
 
 class JobHeader extends React.Component {
 	render() {
@@ -37,8 +37,7 @@ class JobHeader extends React.Component {
 		  const handleShow = () => setShow(true);
 
 		  return (
-		    <>
-				<testWrapper />
+		  	<>
 					<Button className="ml-3" variant="primary" onClick={handleShow}>Create a job posting</Button>
 
 		      <Modal show={show} onHide={handleClose}>
@@ -228,7 +227,11 @@ class JobPosting extends React.Component {
 
 // TODO: Use for loop to populate <JobPosting />s inside Container
 export class Jobs extends React.Component {
+	constructor(props){
+		super(props);
+	}
 	render() {
+		console.log(this.props.firebase.db.ref('jobs').on('value', snapshot => {console.log(snapshot.val())}));
 		return (
 			<div>
 				<JobHeader />
@@ -258,3 +261,6 @@ export class Jobs extends React.Component {
 		);
 	}
 }
+
+
+export const jobsDBRef = withFirebase(Jobs);
