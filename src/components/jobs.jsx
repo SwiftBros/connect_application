@@ -33,12 +33,12 @@ class JobHeader extends React.Component {
 	}
 
 	render() {
-		const jobsRef = this.props.firebase.db.ref('jobs');
-
-		jobsRef.on('value', snapshot => {
-			console.log("Inside JobHeader");
-			console.log(snapshot.val());
-		});
+		// const jobsRef = this.props.firebase.db.ref('jobs');
+		//
+		// jobsRef.on('value', snapshot => {
+		// 	console.log("Inside JobHeader");
+		// 	console.log(snapshot.val());
+		// });
 
 		function PostAJob() {
 		  const [show, setShow] = React.useState(false);
@@ -270,7 +270,7 @@ export class Jobs extends React.Component {
 
 		return (
 			<div>
-				<wrappedJobHeader />
+				<JobHeader />
 
 				<Container>
 					<Row>
@@ -298,6 +298,6 @@ export class Jobs extends React.Component {
 	}
 }
 //
-const wrappedJobHeader = withFirebase(JobHeader)
+// const wrappedJobHeader = withFirebase(JobHeader)
 // const wrappedJobPosting = withFirebase(JobPosting)
 // export const jobsDBRef = withFirebase(Jobs);
