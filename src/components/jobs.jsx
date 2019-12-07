@@ -1,10 +1,32 @@
 import React from "react";
 import { Row, Col, Form, FormControl, Button, Container, Modal } from 'react-bootstrap';
-import { jobsRef } from './Firebase/firebase.js';
+import { FirebaseContext, withFirebase } from './Firebase';
 
+class Wrapper extends React.Component {
+	constructor(props) {
+		super(props);
+	}
 
-// TODO: Connect this to firebase
-// TODO: Link submit button to <Form> component
+	render(){
+		console.log("INSIDE JOBS WRAPPER");
+		const jobsRef = this.props.firebase.db.ref('jobs');
+		jobsRef.on('value', function(snapshot) {
+			snapshot.forEach(function(snapshotRef) {
+				var val = snapshotRef.val();
+
+				console.log(val);
+			});
+		}, function(errorObj) {
+			console.log("The read failed: " + errorObj.code);
+		});
+
+		return (
+			<div>TEST WRAPPER</div>
+		)
+	}
+}
+export const testWrapper = withFirebase(Wrapper);
+
 class JobHeader extends React.Component {
 	render() {
 
@@ -16,6 +38,7 @@ class JobHeader extends React.Component {
 
 		  return (
 		    <>
+				<testWrapper />
 					<Button className="ml-3" variant="primary" onClick={handleShow}>Create a job posting</Button>
 
 		      <Modal show={show} onHide={handleClose}>
