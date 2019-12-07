@@ -12,7 +12,7 @@ import {
 import { Jobs } from './jobs.jsx';
 import { Login } from './login.jsx';
 import { HomePage } from './HomePage.js';
-import { SignUp } from './signup.jsx';
+import SignUpPage from './signup.jsx';
 
 class RouterNavbar extends React.Component {
     render() {
@@ -69,7 +69,7 @@ class RouterNavbar extends React.Component {
           <Route path="/jobs" component={Jobs} />
           <Route path="/topics" component={Topics} />
           <Route path="/login" component={Login} />
-          <Route path="/signup" component={SignUp} />
+          <Route path="/signup" component={SignUpPage} />
         </Switch>
       </div>
       </Router>

@@ -68,16 +68,25 @@
 
     <script>
       //Your web app's Firebase configuration
-      var firebaseConfig = {
-        apiKey: "AIzaSyCGMTOq_jZFlh5qlVtCV-ATlDoB6c06tlk",
-        authDomain: "connect-application-444a1.firebaseapp.com",
-        databaseURL: "https://connect-application-444a1.firebaseio.com",
-        projectId: "connect-application-444a1",
-        storageBucket: "connect-application-444a1.appspot.com",
-        messagingSenderId: "544078965515",
-        appId: "1:544078965515:web:84de34ac06c7e2cf46100e",
-        measurementId: "G-2KWPVC1MV6"
-      };
+      // var firebaseConfig = {
+      //   apiKey: "AIzaSyCGMTOq_jZFlh5qlVtCV-ATlDoB6c06tlk",
+      //   authDomain: "connect-application-444a1.firebaseapp.com",
+      //   databaseURL: "https://connect-application-444a1.firebaseio.com",
+      //   projectId: "connect-application-444a1",
+      //   storageBucket: "connect-application-444a1.appspot.com",
+      //   messagingSenderId: "544078965515",
+      //   appId: "1:544078965515:web:84de34ac06c7e2cf46100e",
+      //   measurementId: "G-2KWPVC1MV6"
+      // };
+
+  var firebaseConfig = {
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_DATABASE_URL,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  };
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
       firebase.analytics();
