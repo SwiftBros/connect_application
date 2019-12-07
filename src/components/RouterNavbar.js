@@ -15,61 +15,65 @@ import { HomePage } from './HomePage.js';
 import SignUpPage from './signup.jsx';
 import SignOutButton from './signout.jsx';
 
+const Navigation = ({ authUser }) => (
+  <div>{authUser ? <NavigationAuth /> : <NavigationNonAuth />}</div>
+);
+
 class RouterNavbar extends React.Component {
-    render() {
-      var navbarStyle = {
+  render() {
+    var navbarStyle = {
           // For navbar left-padding
           paddingInlineStart: 0,
-      };
-    return (
-      <Router>
-      <div>
-        <div className="">
-            <ul style={navbarStyle} className="mb-0">
-            <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="#home">
-            <Link className="text-info font-weight-bold" to="/">CONNECT</Link>
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ml-auto">
-            <Nav.Link href="#link">
-            <li>
-              <Link className="text-dark" to="/about">About</Link>
-            </li>
-            </Nav.Link>
-            <Nav.Link href="#link">
-            <li>
-              <Link className="text-dark" to="/jobs">Jobs</Link>
-            </li>
-            </Nav.Link>
-            <Nav.Link href="#link">
-            <li>
-              <Link className="text-dark" to="/topics">Topics</Link>
-            </li>
-            </Nav.Link>
-            <Nav.Link className="btn btn-primary" href="#link">
-            <li>
-              <Link className="text-light" to="/login">Login</Link>
-            </li>
-            </Nav.Link>
-            <Nav.Link className="btn btn-info ml-2" href="#link">
-            <li>
-              <Link className="text-light" to="/signup">Sign Up</Link>
-            </li>
-            </Nav.Link>
-            <Nav.Link className="btn btn-info ml-2" href="#link">
-            <li>
-              <Link className="text-light" to="/signout">Sign Out</Link>
-            </li>
-            </Nav.Link>
-            </Nav>
-            </Navbar.Collapse>
-            </Navbar>
-            </ul>
-        </div>
+        };
+        return (
+          <Router>
+          <div>
+          <div className="">
+          <ul style={navbarStyle} className="mb-0">
+          <Navbar bg="light" expand="lg">
+          <Navbar.Brand href="#home">
+          <Link className="text-info font-weight-bold" to="/">CONNECT</Link>
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ml-auto">
+          <Nav.Link href="#link">
+          <li>
+          <Link className="text-dark" to="/about">About</Link>
+          </li>
+          </Nav.Link>
+          <Nav.Link href="#link">
+          <li>
+          <Link className="text-dark" to="/jobs">Jobs</Link>
+          </li>
+          </Nav.Link>
+          <Nav.Link href="#link">
+          <li>
+          <Link className="text-dark" to="/topics">Topics</Link>
+          </li>
+          </Nav.Link>
+          <Nav.Link className="btn btn-primary" href="#link">
+          <li>
+          <Link className="text-light" to="/login">Login</Link>
+          </li>
+          </Nav.Link>
+          <Nav.Link className="btn btn-info ml-2" href="#link">
+          <li>
+          <Link className="text-light" to="/signup">Sign Up</Link>
+          </li>
+          </Nav.Link>
+          <Nav.Link className="btn btn-info ml-2" href="#link">
+          <li>
+          <Link className="text-light" to="/signout">Sign Out</Link>
+          </li>
+          </Nav.Link>
+          </Nav>
+          </Navbar.Collapse>
+          </Navbar>
+          </ul>
+          </div>
 
-        <Switch>
+          <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/about" component={About} />
           <Route path="/jobs" component={Jobs} />
@@ -77,13 +81,13 @@ class RouterNavbar extends React.Component {
           <Route path="/login" component={SignInPage} />
           <Route path="/signup" component={SignUpPage} />
           <Route path="/signout" component={SignOutButton} />
-        </Switch>
-      </div>
-      </Router>
+          </Switch>
+          </div>
+          </Router>
 
-    );
-  }
-}
+          );
+      }
+    }
 
 // <NavDropdown title="Dropdown" id="basic-nav-dropdown">
 // <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -126,7 +130,7 @@ class Home extends React.Component {
   render() {
     return (
       <HomePage />
-    );
+      );
   }
 }
 
@@ -134,9 +138,9 @@ class About extends React.Component {
   render() {
     return (
       <div>
-        <h1>ABOUT PAGE</h1>
+      <h1>ABOUT PAGE</h1>
       </div>
-    );
+      );
   }
 }
 
@@ -156,33 +160,33 @@ function Topics() {
 
   return (
     <div>
-      <h2>Topics</h2>
+    <h2>Topics</h2>
 
-      <ul>
-        <li>
-          <Link to={`${match.url}/components`}>Components</Link>
-        </li>
-        <li>
-          <Link to={`${match.url}/props-v-state`}>
-            Props v. State
-          </Link>
-        </li>
-      </ul>
+    <ul>
+    <li>
+    <Link to={`${match.url}/components`}>Components</Link>
+    </li>
+    <li>
+    <Link to={`${match.url}/props-v-state`}>
+    Props v. State
+    </Link>
+    </li>
+    </ul>
 
       {/* The Topics page has its own <Switch> with more routes
           that build on the /topics URL path. You can think of the
           2nd <Route> here as an "index" page for all topics, or
-          the page that is shown when no topic is selected */}
-      <Switch>
+        the page that is shown when no topic is selected */}
+        <Switch>
         <Route path={`${match.path}/:topicId`}>
-          <Topic />
+        <Topic />
         </Route>
         <Route path={match.path}>
-          <h3>Please select a topic.</h3>
+        <h3>Please select a topic.</h3>
         </Route>
-      </Switch>
-    </div>
-  );
+        </Switch>
+        </div>
+        );
 }
 
 function Topic() {
@@ -190,4 +194,4 @@ function Topic() {
   return <h3>Requested topic ID: {topicId}</h3>;
 }
 
-export default RouterNavbar;
+export default Navigation;
