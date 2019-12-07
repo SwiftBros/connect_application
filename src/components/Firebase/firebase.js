@@ -65,6 +65,10 @@ class Firebase {
 	// *** User API ***
 	user = uid => this.db.ref(`users/${uid}`);
 	users = () => this.db.ref('users');
+
+	// *** Jobs API ***
+	jobs = () => this.db.ref('jobs');
+
 }
 
 // firebase.initializeApp(config);
