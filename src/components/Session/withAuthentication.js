@@ -1,4 +1,6 @@
 import React from 'react';
+// import { Col, Row, Container } from 'react-bootstrap';
+
 import AuthUserContext from './context';
 import { withFirebase } from '../Firebase';
 const withAuthentication = Component => {
@@ -24,9 +26,9 @@ const withAuthentication = Component => {
 		render() {
 			return (
 				<AuthUserContext.Provider value={this.state.authUser}>
-				<Component {...this.props} />
+					<Component {...this.props} />
 				</AuthUserContext.Provider>
-				);
+			);
 		}
 	}
 		return withFirebase(WithAuthentication);

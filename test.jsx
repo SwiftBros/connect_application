@@ -201,3 +201,60 @@ class JobPosting extends React.Component {
 // 		</form>
 // 	</li>
 // </div>
+
+<Container>
+	<Row>
+		<AuthUserContext.Consumer>
+			{authUser => (
+				<Col xs={4} className="mt-3">
+					<Container className="bg-light border border-light rounded">
+						<Row>
+							<Col>
+								<span style={ posterName }>{ this.state.currentUser }</span>
+							</Col>
+
+							<Col>
+								<span style={ location }>
+									{ job.jobLocation }
+								</span>
+							</Col>
+						</Row>
+
+						<Row>
+							<Col>
+								<span style={ jobTitle }>{ job.jobTitle }</span>
+							</Col>
+						</Row>
+
+						<Row>
+							<Col>
+								<br />
+								<span style={ jobSummary }>{ job.jobSummary }</span>
+								<br /><br />
+							</Col>
+						</Row>
+
+						<Row>
+							<Col>
+								<span style={ timestamp }>12/07/2019</span>
+							</Col>
+
+							<Col>
+								<span style={ payRate }>{ job.payRate }</span>
+							</Col>
+						</Row>
+
+						<Row>
+							<Col className="border-top border-secondary pt-2 pb-2">
+								<button type="button" onClick={() => this.props.onRemoveMessage(this.props.message.uid)}>
+									Delete
+								</button>
+								<LearnMore />
+							</Col>
+						</Row>
+					</Container>
+				</Col>
+			)}
+		</ AuthUserContext.Consumer>
+	</Row>
+</Container>

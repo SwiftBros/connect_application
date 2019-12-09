@@ -87,13 +87,14 @@ class JobsBase extends Component {
 			<AuthUserContext.Consumer>
 			{authUser => (
 			<div>
-			{loading && <div>Loading ...</div>}
-			{jobs ? (
-					<MessageList onRemoveMessage={this.onRemoveMessage}
-					onEditMessage={this.onEditMessage} messages={jobs} firebase={this.props.firebase}/>
-				) : (
-					<div>There are no messages ...</div>
-			)}
+				{loading && <div>Loading ...</div>}
+
+				{jobs ? (
+						<MessageList onRemoveMessage={this.onRemoveMessage}
+						onEditMessage={this.onEditMessage} messages={jobs} firebase={this.props.firebase}/>
+					) : (
+						<div>There are no messages ...</div>
+				)}
 				<form onSubmit={event => this.onCreateMessage(event, authUser)}>
 					<input
 					type="text"
@@ -137,7 +138,7 @@ class JobsBase extends Component {
 
 					<button type="submit">Send</button>
 				</form>
-				</div>
+			</div>
 			)}
 			</AuthUserContext.Consumer>
 		);
@@ -146,11 +147,15 @@ class JobsBase extends Component {
 }
 
 const MessageList = ({ messages, firebase, onRemoveMessage }) => (
-	<ul>
-	{messages.map(message => (
-		<MessageItemWithFirebase key={message.uid} message={message} firebase={firebase} onRemoveMessage={onRemoveMessage}/>
+	<div>
+		<Container><Row>
+		{messages.map(message => (
+			<Col xs={4} className="mt-3">
+				<MessageItemWithFirebase key={message.uid} message={message} firebase={firebase} onRemoveMessage={onRemoveMessage}/>
+			</Col>
 		))}
-	</ul>
+		</Row></Container>
+	</div>
 	);
 
 class MessageItem extends Component {
@@ -314,63 +319,56 @@ class MessageItem extends Component {
 		}
 
 		return (
-			<Container>
-				<Row>
-					<AuthUserContext.Consumer>
-						{authUser => (
-							<Col xs={4} className="mt-3">
-								<Container className="bg-light border border-light rounded">
-									<Row>
-										<Col>
-											<span style={ posterName }>{ this.state.currentUser }</span>
-										</Col>
-
-										<Col>
-											<span style={ location }>
-												{ job.jobLocation }
-											</span>
-										</Col>
-									</Row>
-
-									<Row>
-										<Col>
-											<span style={ jobTitle }>{ job.jobTitle }</span>
-										</Col>
-									</Row>
-
-									<Row>
-										<Col>
-											<br />
-											<span style={ jobSummary }>{ job.jobSummary }</span>
-											<br /><br />
-										</Col>
-									</Row>
-
-									<Row>
-										<Col>
-											<span style={ timestamp }>12/07/2019</span>
-										</Col>
-
-										<Col>
-											<span style={ payRate }>{ job.payRate }</span>
-										</Col>
-									</Row>
-
-									<Row>
-										<Col className="border-top border-secondary pt-2 pb-2">
-											<button type="button" onClick={() => this.props.onRemoveMessage(this.props.message.uid)}>
-												Delete
-											</button>
-											<LearnMore />
-										</Col>
-									</Row>
-								</Container>
+			<AuthUserContext.Consumer>
+				{authUser => (
+					<Container className="bg-light border border-light rounded">
+						<Row>
+							<Col>
+								<span style={ posterName }>{ this.state.currentUser }</span>
 							</Col>
-						)}
-					</ AuthUserContext.Consumer>
-				</Row>
-			</Container>
 
+							<Col>
+								<span style={ location }>
+									{ job.jobLocation }
+								</span>
+							</Col>
+						</Row>
+
+						<Row>
+							<Col>
+								<span style={ jobTitle }>{ job.jobTitle }</span>
+							</Col>
+						</Row>
+
+						<Row>
+							<Col>
+								<br />
+								<span style={ jobSummary }>{ job.jobSummary }</span>
+								<br /><br />
+							</Col>
+						</Row>
+
+						<Row>
+							<Col>
+								<span style={ timestamp }>12/07/2019</span>
+							</Col>
+
+							<Col>
+								<span style={ payRate }>{ job.payRate }</span>
+							</Col>
+						</Row>
+
+						<Row>
+							<Col className="border-top border-secondary pt-2 pb-2">
+								<button type="button" onClick={() => this.props.onRemoveMessage(this.props.message.uid)}>
+									Delete
+								</button>
+								<LearnMore />
+							</Col>
+						</Row>
+					</Container>
+				)}
+			</ AuthUserContext.Consumer>
 		);
 	}
 }
