@@ -25,9 +25,34 @@ class MessagesBase extends Component {
 			loading: false,
 			messages: [],
 			currentUser: '',
+			fromList: [],
+			toList: [],
 		};
 	}
 	componentDidMount() {
+		// var firebase = this.props.firebase;
+		// firebase.user(this.props.jobs().from).on('value', snapshot => {
+		// console.log("hello");
+		// const userObject = snapshot.val();
+		// 	const username = userObject["username"];
+		// 	console.log('The user name is ' + username);
+		// 	// const newList = this.state.fromList.concat(userObject["username"]);
+		// 	// console.log(newList);
+		// 	// this.setState({ fromList: newList });
+		// 	this.state.fromList.push(userObject["username"]);
+		// 	console.log(this.state.fromList);
+		// });
+		// firebase.user(this.props.message.to).on('value', snapshot => {
+		// console.log("hello");
+		// const userObject = snapshot.val();
+		// 	const username = userObject["username"];
+		// 	console.log('The user name is ' + username);
+		// 	// const newList = this.state.fromList.concat(userObject["username"]);
+		// 	// console.log(newList);
+		// 	// this.setState({ fromList: newList });
+		// 	this.state.toList.push(userObject["username"]);
+		// 	console.log(this.state.toList);
+		// });
 		var self = this;
 		currUser = this.props.firebase.auth["W"];
 		this.setState({currentUser: self.props.firebase.auth["W"]});
@@ -99,7 +124,7 @@ class MessagesBase extends Component {
 
 	render() {
 		console.log(this.state);
-		const { text, messages, loading, currentUser } = this.state;
+		const { text, messages, loading, currentUser, fromList, toList } = this.state;
 		return (
 			<AuthUserContext.Consumer>
 			{authUser => (
@@ -107,7 +132,8 @@ class MessagesBase extends Component {
 			<div>
 			{ loading && <div>Loading ...</div>}
 			{messages ? (
-				<MessageList messages={messages} onEditMessage={this.onEditMessage} onRemoveMessage={this.onRemoveMessage}/>
+				<MessageList messages={messages}
+		 		onEditMessage={this.onEditMessage} onRemoveMessage={this.onRemoveMessage}/>
 				) : (
 				<div>There are no messages ...</div>
 				)}
@@ -126,13 +152,61 @@ class MessagesBase extends Component {
 	}
 }
 
-const MessageList = ({ messages, onRemoveMessage, onEditMessage }) => (
+const MessageList = ({ messages, onRemoveMessage, onEditMessage, }) => (
 	<ul>
 	{messages.map(message => (
-		<MessageItemWithFirebase key={message.uid} message={message} onEditMessage={onEditMessage} onRemoveMessage={onRemoveMessage} />
+		<MessageItemWithFirebase key={message.uid} message={message}
+		 onEditMessage={onEditMessage} onRemoveMessage={onRemoveMessage} />
 		))}
 	</ul>
 	);
+
+// class MessageList extends Component {
+// 	constructor(props) {
+// 		super(props);
+// 		this.state = {
+// 			fromList: [],
+// 			toList: [],
+// 		}
+// 	}
+// 	componentDidMount() {
+// 		// var firebase = this.props.firebase;
+// 		// firebase.user(this.props.messages.from).on('value', snapshot => {
+// 		// console.log("hello");
+// 		// const userObject = snapshot.val();
+// 		// 	const username = userObject["username"];
+// 		// 	console.log('The user name is ' + username);
+// 		// 	// const newList = this.state.fromList.concat(userObject["username"]);
+// 		// 	// console.log(newList);
+// 		// 	// this.setState({ fromList: newList });
+// 		// 	this.state.fromList.push(userObject["username"]);
+// 		// 	console.log(this.state.fromList);
+// 		// });
+// 		// firebase.user(this.props.messages.to).on('value', snapshot => {
+// 		// console.log("hello");
+// 		// const userObject = snapshot.val();
+// 		// 	const username = userObject["username"];
+// 		// 	console.log('The user name is ' + username);
+// 		// 	// const newList = this.state.fromList.concat(userObject["username"]);
+// 		// 	// console.log(newList);
+// 		// 	// this.setState({ fromList: newList });
+// 		// 	this.state.toList.push(userObject["username"]);
+// 		// 	console.log(this.state.toList);
+// 		// });
+// 	}
+// 	render(){
+// 		return (
+// 			<ul>
+// 			{this.props.messages.map(message => (
+// 				<MessageItemWithFirebase key={this.props.message.uid} message={this.props.message}
+// 				fromList={this.props.fromList} toList={this.props.toList} onEditMessage={this.props.onEditMessage} onRemoveMessage={this.props.onRemoveMessage} />
+// 				))}
+// 			</ul>
+// 		);
+// 	}
+// }
+
+//const MessageListFirebase = withFirebase(MessageList)
 
 class MessageItem extends Component {
 	constructor(props) {
@@ -150,7 +224,9 @@ class MessageItem extends Component {
 		var firebase = this.props.firebase;
 		firebase.user(this.props.message.from).on('value', snapshot => {
 		console.log("hello");
+		if (snapshot.val()) {
 		const userObject = snapshot.val();
+		if (userObject["username"]) {
 			const username = userObject["username"];
 			console.log('The user name is ' + username);
 			// const newList = this.state.fromList.concat(userObject["username"]);
@@ -158,10 +234,14 @@ class MessageItem extends Component {
 			// this.setState({ fromList: newList });
 			this.state.fromList.push(userObject["username"]);
 			console.log(this.state.fromList);
+		}
+	}
 		});
 		firebase.user(this.props.message.to).on('value', snapshot => {
 		console.log("hello");
+		if (snapshot.val()) {
 		const userObject = snapshot.val();
+		if (userObject["username"]) {
 			const username = userObject["username"];
 			console.log('The user name is ' + username);
 			// const newList = this.state.fromList.concat(userObject["username"]);
@@ -169,6 +249,8 @@ class MessageItem extends Component {
 			// this.setState({ fromList: newList });
 			this.state.toList.push(userObject["username"]);
 			console.log(this.state.toList);
+		}
+	}
 		});
 		// console.log(this.state.fromList);
 	}
@@ -216,12 +298,8 @@ class MessageItem extends Component {
 			) : (
 			<span>
 			<strong>{message.userId}</strong> {message.text}
-			<p>From {
-				() => {
-
-				}
-
-			}</p>
+			<p>From {this.state.fromList[0]}</p>
+			<p>To {this.state.toList[0]}</p>
 			</span>
 		)}
 		{editMode ? (

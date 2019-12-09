@@ -6,9 +6,17 @@ import Network from './images/network.png';
 import Security from './images/security.png';
 import ProfessionalDev from './images/prof_dev.png';
 import Partner from './images/partner.png';
+import { Link, withRouter } from 'react-router-dom';
 
 
 class BannerJumbotron extends React.Component {
+  constructor(props) {
+      super(props);
+  }
+
+  redirect = () => {
+      this.props.history.push('/signup');
+  }
   render() {
     var jumboImgBackground = {
         backgroundImage: `url(${Background})`,
@@ -26,14 +34,16 @@ class BannerJumbotron extends React.Component {
         <h1 style={{textShadow: '3px 3px #000000', fontSize: '50px'}} className="mt-4 pt-4">Giving youths a headstart on career development</h1>
         <div style={{display: 'flex', justifyContent: 'center'}}>
           <ButtonToolbar>
-            <Button variant="info" className="mt-3 mr-5">I'm a Youth</Button>
-            <Button variant="info" className="mt-3 ml-5">I'm a Client</Button>
+            <Button variant="info" onClick={this.redirect} className="mt-3 mr-5">I'm a Youth</Button>
+            <Button variant="info" onClick={this.redirect} className="mt-3 ml-5">I'm a Client</Button>
           </ButtonToolbar>
         </div>
       </div>
     )
   }
 }
+
+const BannerJumbotronRouter = withRouter(BannerJumbotron)
 
 class Mission extends React.Component {
   render() {
@@ -47,6 +57,8 @@ class Mission extends React.Component {
 
   }
 }
+
+
 
 // <Card.Img variant="top" src={Network} fluid/>
 // <Card.Img variant="top" src={Security} fluid/>
@@ -194,7 +206,7 @@ export class HomePage extends React.Component {
 	render() {
 		return (
       <div>
-        <BannerJumbotron />
+        <BannerJumbotronRouter />
         <Mission />
         <ValuePropositions />
         <CallToAction />
