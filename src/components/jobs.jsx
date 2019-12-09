@@ -727,22 +727,16 @@ export class Jobs extends React.Component {
 		super(props);
 	}
 	render() {
-		// const jobsRef = this.props.firebase.db.ref('jobs');
-		//
-		// jobsRef.on('value', snapshot => {
-		// 	console.log(snapshot.val())
-		// });
 
-		// jobsRef.on('value', function(snapshot) {
-		// 	snapshot.forEach(function(snapshotRef) {
-		// 		var val = snapshotRef.val();
-		//
-		// 		console.log(val);
-		// 	});
-		// }, function(errorObj) {
-		// 	console.log("The read failed: " + errorObj.code);
-		// });
 
+		var items = [];
+		for (var i = 0; i < 3; i++) {
+			items.push(
+				<Col xs={4} className="mt-3">
+					<JobPosting />
+				</Col>
+			)
+		}
 		return (
 			<div>
 				<AllJobs />
@@ -750,30 +744,10 @@ export class Jobs extends React.Component {
 
 				<Container>
 					<Row>
-						<Col xs={4} className="mt-3">
-							<JobPosting />
-						</Col>
-						<Col xs={4} className="mt-3">
-							<JobPosting />
-						</Col>
-						<Col xs={4} className="mt-3">
-							<JobPosting />
-						</Col>
-
-						<Col xs={4} className="mt-3">
-							<JobPosting/>
-						</Col>
-
-						<Col xs={4} className="mt-3">
-							<JobPosting />
-						</Col>
+						{items}
 					</Row>
 				</Container>
 			</div>
 		);
 	}
 }
-//
-// const wrappedJobHeader = withFirebase(JobHeader)
-// const wrappedJobPosting = withFirebase(JobPosting)
-// export const jobsDBRef = withFirebase(Jobs);
