@@ -74,7 +74,7 @@ class JobsBase extends Component {
 			jobSummary: this.state.jobSummary,
 			jobDescription: this.state.jobDescription,
 			timestamp: 'timestamp',
-			payRate: 15,
+			payRate: this.state.payRate,
 			messages: "Placeholder",
 		});
 		this.setState({ text: '' });
@@ -130,7 +130,7 @@ class JobsBase extends Component {
 					<input
 					type="text"
 					name="payRate"
-					placeholder="jobDescription"
+					placeholder="Pay Rate"
 					value={payRate}
 					onChange={this.onChangeText}
 					/>
