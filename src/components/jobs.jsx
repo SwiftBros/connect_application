@@ -49,11 +49,23 @@ class JobsBase extends Component {
 		this.props.firebase.jobs().off();
 	}
 
+	onEditMessage = () => {
+
+	};
+
+	onRemoveMessage = uid => {
+		// console.log(uid);
+		// console.log(this.props.firebase.job(uid));
+		this.props.firebase.job(uid).remove();
+	};
+
 	onChangeText = event => {
 		console.log(this.state);
 		this.setState({ [event.target.name]: event.target.value });
 	};
+
 	onCreateMessage = (event, authUser) => {
+		var self = this;
 		this.props.firebase.jobs().push({
 			userId: authUser.uid,
 			jobTitle: this.state.jobTitle,
@@ -62,6 +74,7 @@ class JobsBase extends Component {
 			jobDescription: this.state.jobDescription,
 			timestamp: 'timestamp',
 			payRate: 15,
+			messages: "Placeholder",
 		});
 		this.setState({ text: '' });
 		event.preventDefault();
@@ -75,7 +88,8 @@ class JobsBase extends Component {
 			<div>
 			{loading && <div>Loading ...</div>}
 			{jobs ? (
-				<MessageList messages={jobs} firebase={this.props.firebase}/>
+				<MessageList onRemoveMessage={this.onRemoveMessage}
+				onEditMessage={this.onEditMessage} messages={jobs} firebase={this.props.firebase}/>
 				) : (
 				<div>There are no messages ...</div>
 				)}
@@ -125,10 +139,10 @@ class JobsBase extends Component {
 	}
 }
 
-const MessageList = ({ messages, firebase }) => (
+const MessageList = ({ messages, firebase, onRemoveMessage }) => (
 	<ul>
 	{messages.map(message => (
-		<MessageItemWithFirebase key={message.uid} message={message} firebase={firebase}/>
+		<MessageItemWithFirebase key={message.uid} message={message} firebase={firebase} onRemoveMessage={onRemoveMessage}/>
 		))}
 	</ul>
 	);
@@ -148,25 +162,55 @@ class MessageItem extends Component {
 		var nice = '';
 	 	firebase.user(job.userId).on('value', snapshot => {
 			const userObject = snapshot.val();
-			this.setState({currentUser: userObject["username"]});
-			return userObject["username"];
+			this.setState({currentUser: !userObject? '' : userObject["username"] });
+			return !userObject ? '' : userObject["username"];
 		})
 		console.log(this.state.currentUser);
 	}
 	onApply = (event, authUser) => {
 		console.log(this.state.message);
 		var currentJob = this.props.message;
+		// this.props.firebase.jobs().on('value', snapshot => {
+		// 	const job = snapshot.val().key;
+		// 	console.log(job);
+		// })
+		// var self = this;
 		this.props.firebase.messages().push({
-			userId: authUser.uid,
+			from: authUser.uid,
 			to: this.state.currentUser,
 			text: this.state.message,
+			timestamp: Date.now(),
 		});
+		// console.log();
+		// this.props.firebase.jobs().child('messages').push({
+		// 		from: authUser.uid,
+		// 		to: this.state.currentUser,
+		// 		text: this.state.message,
+		// 		timestamp: this.props.firebase.database.ServerValue.TIMESTAMP,
+		// })
+		// this.props.firebase.jobs().child('messages').push().setValue({
+		// 			from: authUser.uid,
+		// 			to: this.state.currentUser,
+		// 			text: this.state.message,
+		// 			timestamp:this.props.firebase.database.ServerValue.TIMESTAMP,
+		// })
+		// this.props.firebase.jobs().push({
+		// 	messages:
+		// })
+		// console.log(this.props.firebase.jobs().child('messages').push({
+		// 	from: authUser.uid,
+		// }));
+		// this.props.firebase.jobs().child('messages').push({
+		// 	to: "rageeb",
+		// });
+
 		event.preventDefault();
 	}
 	onChangeText = (event) => {
 		this.setState({message: event.target.value });
 		console.log(this.state.message);
 	}
+
 	render() {
 		// console.log(this.state.currentUser);
 		var firebase = this.props.firebase;
@@ -187,6 +231,12 @@ class MessageItem extends Component {
 				' ' + this.state.currentUser
 			}
 			</strong>
+			<button
+			type="button"
+			onClick={() => this.props.onRemoveMessage(this.props.message.uid)}
+			>
+			Delete
+			</button>
 			<form onSubmit={event => this.onApply(event, authUser)}>
 			<input
 			type="text"
