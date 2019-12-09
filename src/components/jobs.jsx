@@ -725,7 +725,6 @@ class JobPosting extends React.Component {
 
 
 // TODO: Use for loop to populate <JobPosting />s inside Container
-
 export class Jobs extends React.Component {
 	constructor(props){
 		super(props);
