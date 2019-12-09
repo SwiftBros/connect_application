@@ -162,7 +162,7 @@ class MessageItem extends Component {
 		var nice = '';
 	 	firebase.user(job.userId).on('value', snapshot => {
 			const userObject = snapshot.val();
-			this.setState({currentUser: !userObject? '' : userObject["username"] });
+			this.setState({currentUser: !userObject? '' : job.userId });
 			return !userObject ? '' : userObject["username"];
 		})
 		console.log(this.state.currentUser);

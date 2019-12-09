@@ -47,7 +47,8 @@ class MessagesBase extends Component {
 				for (let key in messageObject) {
 					if (messageObject[key]["from"] == this.state.currentUser ||
 					messageObject[key]["to"] == this.state.currentUser) {
-						// console.log("Yassss, this is it");
+
+						console.log("Yassss, this is it");
 						messageList.push({...messageObject[key], uid: key,})
 					}
 				}
