@@ -203,6 +203,7 @@ class MessageItem extends Component {
 		// this.props.firebase.jobs().child('messages').push({
 		// 	to: "rageeb",
 		// });
+		alert('Your Application has been submitted!');
 
 		event.preventDefault();
 	}

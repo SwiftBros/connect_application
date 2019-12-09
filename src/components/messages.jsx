@@ -40,13 +40,26 @@ class MessagesBase extends Component {
 		this.props.firebase.messages().on('value', snapshot => {
 			// items.push(snapshot.val()) ? snapshot.val().child('from') == authUser.uid : console.log("not it");
 			const messageObject = snapshot.val();
+			const messageList = [];
+			console.log(messageObject);
 			if (messageObject) {
+				console.log(Object.keys(messageObject));
+				for (let key in messageObject) {
+					if (messageObject[key]["from"] == this.state.currentUser ||
+					messageObject[key]["to"] == this.state.currentUser) {
+						// console.log("Yassss, this is it");
+						messageList.push({...messageObject[key], uid: key,})
+					}
+				}
+				this.setState({ messages: messageList, loading: false });
+			// if (messageObject) {
 			// convert messages list from snapshot
-			const messageList = Object.keys(messageObject).map(key => ({ ...messageObject[key], uid: key,}));
-			this.setState({ messages: messageList, loading: false });
-		} else {
-			this.setState({ messages: null, loading: false });
-		}
+			// const messageList = Object.keys(messageObject).map(key => ({
+			// 	 ...messageObject[key], uid: key,}));
+			// this.setState({ messages: messageList, loading: false });
+			} else {
+				this.setState({ messages: null, loading: false });
+			}
 	});
 	console.log(items);
 	}
@@ -115,23 +128,10 @@ class MessagesBase extends Component {
 const MessageList = ({ messages, onRemoveMessage, onEditMessage }) => (
 	<ul>
 	{messages.map(message => (
-		<MessageItem key={message.uid} message={message} onEditMessage={onEditMessage} onRemoveMessage={onRemoveMessage} />
+		<MessageItemWithFirebase key={message.uid} message={message} onEditMessage={onEditMessage} onRemoveMessage={onRemoveMessage} />
 		))}
 	</ul>
 	);
-
-// const MessageItem = ({ message, onRemoveMessage }) => (
-//
-// 	<li>
-// 	<strong>{message.userId}</strong> {message.text}
-// 	<button
-// 		type="button"
-// 		onClick={() => onRemoveMessage(message.uid)}
-// 		>
-// 		Delete
-// 	</button>
-// 	</li>
-// 	);
 
 class MessageItem extends Component {
 	constructor(props) {
@@ -139,7 +139,24 @@ class MessageItem extends Component {
 		this.state = {
 			editMode: false,
 			editText: this.props.message.text,
+			replyText: '',
+			fromList: [],
+			toList: [],
 		};
+	}
+
+	componentDidMount() {
+		var firebase = this.props.firebase;
+		firebase.user(this.props.message.from).on('value', snapshot => {
+		console.log("hello");
+		const userObject = snapshot.val();
+			const username = userObject["username"];
+			console.log('The user name is ' + username);
+			const newList = this.state.fromList.concat(userObject["username"]);
+			console.log(newList);
+			this.setState({ fromList: newList });
+		});
+		console.log(this.state.fromList);
 	}
 
 	onToggleEditMode = () => {
@@ -156,10 +173,25 @@ class MessageItem extends Component {
 		this.props.onEditMessage(this.props.message, this.state.editText);
 		this.setState({ editMode: false });
 	};
+	onReplyTextChanged = (event) => {
+		this.setState({ replyText: event.target.value});
+		event.preventDefault();
+	}
+
+	onReply = (event, authUser) => {
+		this.props.firebase.messages().push({
+			from: authUser.uid,
+			to: this.props.message.uid,
+			text: this.state.replyText,
+			timestamp: Date.now(),
+		});
+	}
 	render() {
 		const { message, onRemoveMessage } = this.props;
-		const { editMode, editText } = this.state;
+		const { editMode, editText, replyText } = this.state;
 		return (
+			<AuthUserContext.Consumer>
+			{authUser => (
 		<li>
 		{editMode ? (
 			<input
@@ -170,11 +202,14 @@ class MessageItem extends Component {
 			) : (
 			<span>
 			<strong>{message.userId}</strong> {message.text}
+			<p>From {
+				() => {
+
+				}
+
+			}</p>
 			</span>
 		)}
-		<span>
-		<strong>{message.userId}</strong> {message.text}
-		</span>
 		{editMode ? (
 				<span>
 				<button onClick={this.onSaveEditText}>Save</button>
@@ -184,17 +219,40 @@ class MessageItem extends Component {
 				<button onClick={this.onToggleEditMode}>Edit</button>
 		)}
 		{!editMode && (
+		<span>
 		<button
 		type="button"
 		onClick={() => onRemoveMessage(message.uid)}
 		>
 		Delete
 		</button>
+		<input
+		type="text"
+		value={replyText}
+		onChange={this.onReplyTextChanged}
+		/>
+		<button
+		type="button"
+		onClick={event => this.onReply(event, authUser)}
+		>
+		Send
+		</button>
+		</span>
 		)}
 		</li>
-		);
+		)}
+		</ AuthUserContext.Consumer>
+	);
 	}
 }
+
+
+
+// <span>
+// <strong>{message.userId}</strong> {message.text}
+// </span>
+
+const MessageItemWithFirebase = withFirebase(MessageItem)
 
 const AllMessages = withFirebase(MessagesBase);
 
