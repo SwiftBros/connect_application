@@ -16,7 +16,7 @@ const withAuthentication = Component => {
 					? this.setState({ authUser })
 					: this.setState({ authUser: null });
 				},
-				);
+			);
 		}
 		componentWillUnmount() {
 			this.listener();
@@ -29,6 +29,7 @@ const withAuthentication = Component => {
 				);
 		}
 	}
-	return withFirebase(WithAuthentication);
+		return withFirebase(WithAuthentication);
 };
+
 export default withAuthentication;

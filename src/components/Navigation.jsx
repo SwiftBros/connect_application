@@ -29,12 +29,23 @@ const Navigation = () => (
 //   <div>{authUser ? <NavigationAuth /> : <NavigationNonAuth />}</div>
 //   );
 
-const NavigationAuth = () => {
-  var navbarStyle = {
+class NavigationAuth extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+    }
+  }
+
+  onLoggedIn() {
+    
+  }
+  render() {
+      var navbarStyle = {
           // For navbar left-padding
           paddingInlineStart: 0,
         };
-        return (
+    return (
           <Router>
           <div>
           <div className="">
@@ -81,11 +92,13 @@ const NavigationAuth = () => {
           </Switch>
           </div>
           </Router>
+    );
+  }
+}
 
-          );
-      }
+      class NavigationNonAuth extends React.Component {
 
-      const NavigationNonAuth = () => {
+        render() {
         var navbarStyle = {
           // For navbar left-padding
           paddingInlineStart: 0,
@@ -145,8 +158,8 @@ const NavigationAuth = () => {
           </Router>
 
           );
-
-      }
+        }
+    }
 // const NavigationAuth = NavigationAuthClass();
 // const NavigationNonAuth = NavigationNonAuthClass();
 

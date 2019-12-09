@@ -38,8 +38,7 @@ class JobHeader extends React.Component {
 
 		  return (
 		  	<>
-					<Button className="ml-3" variant="primary" onClick={handleShow}>Create a job posting</Button>
-
+			  <Button className="ml-3" variant="primary" onClick={handleShow}>Create a job posting</Button>
 		      <Modal show={show} onHide={handleClose}>
 		        <Modal.Header closeButton>
 		          <Modal.Title>Create a Job Posting</Modal.Title>
