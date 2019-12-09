@@ -6,20 +6,20 @@ import { FirebaseContext, withFirebase } from './Firebase';
 // 	constructor(props) {
 // 		super(props);
 // 	}
-
+//
 // 	render(){
 // 		console.log("INSIDE JOBS WRAPPER");
 // 		const jobsRef = this.props.firebase.db.ref('jobs');
 // 		jobsRef.on('value', function(snapshot) {
 // 			snapshot.forEach(function(snapshotRef) {
 // 				var val = snapshotRef.val();
-
+//
 // 				console.log(val);
 // 			});
 // 		}, function(errorObj) {
 // 			console.log("The read failed: " + errorObj.code);
 // 		});
-
+//
 // 		return (
 // 			<div>TEST WRAPPER</div>
 // 		)
@@ -28,7 +28,17 @@ import { FirebaseContext, withFirebase } from './Firebase';
 // export const testWrapper = withFirebase(Wrapper);
 
 class JobHeader extends React.Component {
+	constructor(props) {
+		super(props)
+	}
+
 	render() {
+		// const jobsRef = this.props.firebase.db.ref('jobs');
+		//
+		// jobsRef.on('value', snapshot => {
+		// 	console.log("Inside JobHeader");
+		// 	console.log(snapshot.val());
+		// });
 
 		function PostAJob() {
 		  const [show, setShow] = React.useState(false);
@@ -103,7 +113,18 @@ class JobHeader extends React.Component {
 
 // TODO: Make this dynamic using props and state
 class JobPosting extends React.Component {
+	constructor(props) {
+		super(props)
+	}
+
 	render() {
+		// const jobsRef = this.props.firebase.db.ref('jobs');
+		//
+		// jobsRef.on('value', snapshot => {
+		// 	console.log("IN JOB POSTING COMPONENT")
+		// 	console.log(snapshot.val())
+		// });
+
 		var posterName = {
 			fontSize: '12px',
 			color: 'gray',
@@ -230,7 +251,22 @@ export class Jobs extends React.Component {
 		super(props);
 	}
 	render() {
-		console.log(this.props.firebase.db.ref('jobs').on('value', snapshot => {console.log(snapshot.val())}));
+		// const jobsRef = this.props.firebase.db.ref('jobs');
+		//
+		// jobsRef.on('value', snapshot => {
+		// 	console.log(snapshot.val())
+		// });
+
+		// jobsRef.on('value', function(snapshot) {
+		// 	snapshot.forEach(function(snapshotRef) {
+		// 		var val = snapshotRef.val();
+		//
+		// 		console.log(val);
+		// 	});
+		// }, function(errorObj) {
+		// 	console.log("The read failed: " + errorObj.code);
+		// });
+
 		return (
 			<div>
 				<JobHeader />
@@ -260,6 +296,7 @@ export class Jobs extends React.Component {
 		);
 	}
 }
-
-
-export const jobsDBRef = withFirebase(Jobs);
+//
+// const wrappedJobHeader = withFirebase(JobHeader)
+// const wrappedJobPosting = withFirebase(JobPosting)
+// export const jobsDBRef = withFirebase(Jobs);
