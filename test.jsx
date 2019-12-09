@@ -1,81 +1,203 @@
-class MessageItem extends Component {
+class JobPosting extends React.Component {
 	constructor(props) {
-		super(props);
-		this.state = {
-			currentUser: '',
-			message: '',
-			currentUserId: '',
-		}
-	}
-	componentDidMount() {
-		var firebase = this.props.firebase;
-		var job = this.props.message;
-		console.log("this is firebase " + firebase);
-		console.log(job.userId);
-		var nice = '';
-	 	firebase.user(job.userId).on('value', snapshot => {
-			const userObject = snapshot.val();
-			this.setState({currentUserId: !userObject? '' : job.userId, currentUser:  userObject["username"] });
-			return !userObject ? '' : userObject["username"];
-		})
-		console.log(this.state.currentUser);
-	}
-	onApply = (event, authUser) => {
-		console.log(this.state.message);
-		var currentJob = this.props.message;
-		this.props.firebase.messages().push({
-			from: authUser.uid,
-			to: this.state.currentUserId,
-			text: this.state.message,
-			timestamp: Date.now(),
-		});
-		alert('Your Application has been submitted!');
-		event.preventDefault();
-	}
-	onChangeText = (event) => {
-		this.setState({message: event.target.value });
-		console.log(this.state.message);
+		super(props)
 	}
 
 	render() {
-		var firebase = this.props.firebase;
-		var job = this.props.message;
+		// const jobsRef = this.props.firebase.db.ref('jobs');
+		//
+		// jobsRef.on('value', snapshot => {
+		// 	console.log("IN JOB POSTING COMPONENT")
+		// 	console.log(snapshot.val())
+		// });
+
+		var posterName = {
+			fontSize: '12px',
+			color: 'gray',
+			fontWeight: 'bold'
+		};
+
+		var location = {
+			float: 'right',
+			fontSize: '12px'
+		}
+
+		var jobTitle = {
+			fontSize: '28px',
+			fontWeight: 'bold'
+		}
+
+		var jobSummary = {
+
+		};
+
+		var timestamp = {
+			fontSize: '11px',
+			color: 'gray'
+		};
+
+		var payRate = {
+			float: 'right',
+			fontSize: '18px',
+			fontWeight:'bold'
+		};
+
+		function LearnMore() {
+		  const [show, setShow] = React.useState(false);
+
+		  const handleClose = () => setShow(false);
+		  const handleShow = () => setShow(true);
+
+		  return (
+		    <>
+		      <Button className="float-right" variant="outline-info" onClick={handleShow}>
+		        Learn More
+		      </Button>
+
+		      <Modal show={show} onHide={handleClose}>
+		        <Modal.Header closeButton>
+		          <Modal.Title>Logo Design</Modal.Title>
+		        </Modal.Header>
+		        <Modal.Body>
+							<div>Poster: <span>Rageeb Mahtab</span></div>
+							<div>Location: <span>New York, NY</span></div>
+							<div>Posted: <span>12/07/2019</span></div>
+							<div>Pay Rate: <span>$100</span></div>
+
+							<br />
+							<p>
+								Basically, I am creating a startup. We need an amazing logo designer for 1 day. For this job, you will be doing mockups, and helping us build our brand image. Message for further inquiry. Availability needed withint next two weeks.
+							</p>
+						</Modal.Body>
+		        <Modal.Footer>
+		          <Button variant="secondary" onClick={handleClose}>
+		            Close
+		          </Button>
+		          <Button variant="primary" onClick={handleClose}>
+		            Apply
+		          </Button>
+		        </Modal.Footer>
+		      </Modal>
+		    </>
+		  );
+		}
+
 		return (
-			<AuthUserContext.Consumer>
-			{authUser => (
-			<div>
-			<li>
-			<strong>{job.userId}</strong>-
-			<strong>{job.jobTitle}</strong>-
-			<strong>{job.jobLocation}</strong>-
-			<strong>{job.jobSummary}</strong>-
-			<strong>{job.jobDescription}</strong>-
-			<strong>{job.payRate}</strong>-
-			<strong>The person who posted this job is
-			{
-				' ' + this.state.currentUser
-			}
-			</strong>
-			<button
-			type="button"
-			onClick={() => this.props.onRemoveMessage(this.props.message.uid)}
-			>
-			Delete
-			</button>
-			<form onSubmit={event => this.onApply(event, authUser)}>
-			<input
-			type="text"
-			name="message"
-			placeholder="Enter message"
-			value={this.state.message}
-			onChange={this.onChangeText}
-			/>
-			<button type="submit">Send</button>
-			</form>
-			</li>
-			</div>
-		)}
-			</ AuthUserContext.Consumer>
+			<Container className="bg-light border border-light rounded">
+				<Row>
+					<Col>
+						<span style={ posterName }>Rageeb Mahtab</span>
+					</Col>
+
+					<Col>
+						<span style={ location }>
+							New York, NY
+						</span>
+					</Col>
+				</Row>
+
+				<Row>
+					<Col>
+						<span style={ jobTitle }>Logo Design</span>
+					</Col>
+				</Row>
+
+				<Row>
+					<Col>
+						<br />
+						<span style={ jobSummary }>Need a logo designer for 1 day. Will pay well.</span>
+						<br /><br />
+					</Col>
+				</Row>
+
+				<Row>
+					<Col>
+						<span style={ timestamp }>12/07/2019</span>
+					</Col>
+
+					<Col>
+						<span style={ payRate }>$100</span>
+					</Col>
+				</Row>
+
+				<Row>
+					<Col className="border-top border-secondary pt-2 pb-2">
+						<LearnMore />
+					</Col>
+				</Row>
+			</Container>
 		);
 	}
 }
+
+// matt-job-posting
+// <Container className="bg-light border border-light rounded">
+// 	<Row>
+// 		<Col>
+// 			<span style={ posterName }>{ this.state.currentUser }</span>
+// 		</Col>
+//
+// 		<Col>
+// 			<span style={ location }>
+// 				{ job.jobLocation }
+// 			</span>
+// 		</Col>
+// 	</Row>
+//
+// 	<Row>
+// 		<Col>
+// 			<span style={ jobTitle }>{ job.jobTitle }</span>
+// 		</Col>
+// 	</Row>
+//
+// 	<Row>
+// 		<Col>
+// 			<br />
+// 			<span style={ jobSummary }>{ job.jobSummary }</span>
+// 			<br /><br />
+// 		</Col>
+// 	</Row>
+//
+// 	<Row>
+// 		<Col>
+// 			<span style={ timestamp }>12/07/2019</span>
+// 		</Col>
+//
+// 		<Col>
+// 			<span style={ payRate }>{ job.payRate }</span>
+// 		</Col>
+// 	</Row>
+//
+// 	<Row>
+// 		<Col className="border-top border-secondary pt-2 pb-2">
+// 			<LearnMore />
+// 		</Col>
+// 	</Row>
+// </Container>
+
+
+// rageeb-job-posting
+// <div>
+// 	<li>
+// 		<strong>{job.userId}</strong><br/>
+// 		<strong>{job.jobTitle}</strong><br/>
+// 		<strong>{job.jobLocation}</strong><br/>
+// 		<strong>{job.jobSummary}</strong><br/>
+// 		<strong>{job.jobDescription}</strong><br/>
+// 		<strong>{job.payRate}</strong><br/>
+// 		<strong>The person who posted this job is
+// 		{
+// 			' ' + this.state.currentUser
+// 		}
+// 		</strong>
+//
+// 		<button type="button" onClick={() => this.props.onRemoveMessage(this.props.message.uid)}>
+// 			Delete
+// 		</button>
+//
+// 		<form onSubmit={event => this.onApply(event, authUser)}>
+// 			<input type="text" name="message" placeholder="Enter message" value={this.state.message} onChange={this.onChangeText} />
+// 			<button type="submit">Send</button>
+// 		</form>
+// 	</li>
+// </div>

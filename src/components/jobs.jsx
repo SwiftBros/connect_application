@@ -221,45 +221,156 @@ class MessageItem extends Component {
 	}
 
 	render() {
-		// console.log(this.state.currentUser);
 		var firebase = this.props.firebase;
 		var job = this.props.message;
+
+		// CSS-Stylings
+		var posterName = {
+			fontSize: '12px',
+			color: 'gray',
+			fontWeight: 'bold'
+		};
+		var location = {
+			float: 'right',
+			fontSize: '12px'
+		}
+		var jobTitle = {
+			fontSize: '28px',
+			fontWeight: 'bold'
+		}
+		var jobSummary = {
+
+		};
+		var timestamp = {
+			fontSize: '11px',
+			color: 'gray'
+		};
+		var payRate = {
+			float: 'right',
+			fontSize: '18px',
+			fontWeight:'bold'
+		};
+
+		function LearnMore() {
+		  const [show, setShow] = React.useState(false);
+
+		  const handleClose = () => setShow(false);
+		  const handleShow = () => setShow(true);
+
+		  return (
+		    <>
+		      <Button className="float-right" variant="outline-info" onClick={handleShow}>
+		        Learn More
+		      </Button>
+
+		      <Modal show={show} onHide={handleClose}>
+		        <Modal.Header closeButton>
+		          <Modal.Title>{ job.jobTitle }</Modal.Title>
+		        </Modal.Header>
+		        <Modal.Body>
+							<div>
+								<span className="font-weight-bold">Poster: </span>
+								<span>{ job.userId }</span>
+							</div>
+
+							<div>
+								<span className="font-weight-bold">Location: </span>
+								<span>{ job.jobLocation }</span>
+							</div>
+
+							<div>
+								<span className="font-weight-bold">Posted: </span>
+								<span>12/07/2019</span>
+							</div>
+
+							<div>
+								<span className="font-weight-bold">Pay Rate: </span>
+								<span>{ job.payRate }</span>
+							</div>
+
+							<div>
+								<span className="font-weight-bold">Job Summary: </span>
+								<span>{ job.jobSummary }</span>
+							</div>
+
+							<br />
+							<p>
+								<span className="font-weight-bold">Job Description: </span>
+								<br />
+								{ job.jobDescription }
+							</p>
+						</Modal.Body>
+		        <Modal.Footer>
+		          <Button variant="secondary" onClick={handleClose}>
+		            Close
+		          </Button>
+		          <Button variant="primary" onClick={handleClose}>
+		            Apply
+		          </Button>
+		        </Modal.Footer>
+		      </Modal>
+		    </>
+		  );
+		}
+
 		return (
-			<AuthUserContext.Consumer>
-			{authUser => (
-			<div>
-			<li>
-			<strong>{job.userId}</strong>-
-			<strong>{job.jobTitle}</strong>-
-			<strong>{job.jobLocation}</strong>-
-			<strong>{job.jobSummary}</strong>-
-			<strong>{job.jobDescription}</strong>-
-			<strong>{job.payRate}</strong>-
-			<strong>The person who posted this job is
-			{
-				' ' + this.state.currentUser
-			}
-			</strong>
-			<button
-			type="button"
-			onClick={() => this.props.onRemoveMessage(this.props.message.uid)}
-			>
-			Delete
-			</button>
-			<form onSubmit={event => this.onApply(event, authUser)}>
-			<input
-			type="text"
-			name="message"
-			placeholder="Enter message"
-			value={this.state.message}
-			onChange={this.onChangeText}
-			/>
-			<button type="submit">Send</button>
-			</form>
-			</li>
-			</div>
-		)}
-			</ AuthUserContext.Consumer>
+			<Container>
+				<Row>
+					<AuthUserContext.Consumer>
+						{authUser => (
+							<Col xs={4} className="mt-3">
+								<Container className="bg-light border border-light rounded">
+									<Row>
+										<Col>
+											<span style={ posterName }>{ this.state.currentUser }</span>
+										</Col>
+
+										<Col>
+											<span style={ location }>
+												{ job.jobLocation }
+											</span>
+										</Col>
+									</Row>
+
+									<Row>
+										<Col>
+											<span style={ jobTitle }>{ job.jobTitle }</span>
+										</Col>
+									</Row>
+
+									<Row>
+										<Col>
+											<br />
+											<span style={ jobSummary }>{ job.jobSummary }</span>
+											<br /><br />
+										</Col>
+									</Row>
+
+									<Row>
+										<Col>
+											<span style={ timestamp }>12/07/2019</span>
+										</Col>
+
+										<Col>
+											<span style={ payRate }>{ job.payRate }</span>
+										</Col>
+									</Row>
+
+									<Row>
+										<Col className="border-top border-secondary pt-2 pb-2">
+											<button type="button" onClick={() => this.props.onRemoveMessage(this.props.message.uid)}>
+												Delete
+											</button>
+											<LearnMore />
+										</Col>
+									</Row>
+								</Container>
+							</Col>
+						)}
+					</ AuthUserContext.Consumer>
+				</Row>
+			</Container>
+
 		);
 	}
 }
@@ -733,14 +844,14 @@ export class Jobs extends React.Component {
 	render() {
 
 
-		var items = [];
-		for (var i = 0; i < 3; i++) {
-			items.push(
-				<Col xs={4} className="mt-3">
-					<JobPosting />
-				</Col>
-			)
-		}
+		// var items = [];
+		// for (var i = 0; i < 1; i++) {
+		// 	items.push(
+		// 		<Col xs={4} className="mt-3">
+		// 			<JobPosting />
+		// 		</Col>
+		// 	)
+		// }
 		return (
 			<div>
 				<AllJobs />
@@ -748,7 +859,9 @@ export class Jobs extends React.Component {
 
 				<Container>
 					<Row>
-						{items}
+						<Col xs={4} className="mt-3">
+							<JobPosting />
+						</Col>
 					</Row>
 				</Container>
 			</div>
