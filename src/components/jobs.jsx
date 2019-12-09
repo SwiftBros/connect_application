@@ -153,16 +153,18 @@ class MessageItem extends Component {
 		this.state = {
 			currentUser: '',
 			message: '',
+			currentUserId: '',
 		}
 	}
 	componentDidMount() {
 		var firebase = this.props.firebase;
 		var job = this.props.message;
 		console.log("this is firebase " + firebase);
+		console.log(job.userId);
 		var nice = '';
 	 	firebase.user(job.userId).on('value', snapshot => {
 			const userObject = snapshot.val();
-			this.setState({currentUser: !userObject? '' : job.userId });
+			this.setState({currentUserId: !userObject? '' : job.userId, currentUser:  userObject["username"] });
 			return !userObject ? '' : userObject["username"];
 		})
 		console.log(this.state.currentUser);
@@ -177,7 +179,7 @@ class MessageItem extends Component {
 		// var self = this;
 		this.props.firebase.messages().push({
 			from: authUser.uid,
-			to: this.state.currentUser,
+			to: this.state.currentUserId,
 			text: this.state.message,
 			timestamp: Date.now(),
 		});
@@ -297,147 +299,147 @@ const MessageItemWithFirebase = withFirebase(MessageItem)
 // );
 
 
-class JobInput extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			userId: '',
-			username: '',
-			jobTitle: '',
-			jobLocation: '',
-			jobSummary: '',
-			jobDescription: '',
-			timestamp: '',
-			payRate: 15,
-		};
-	}
-
-	componentDidMount() {
-
-		console.log(this.props.firebase.jobs());
-	}
-	componentWillUnmount() {
-
-	}
-	onCreateJob (event, authUser) {
-		//console.log("The userid is ", this.state.userId);
-		this.props.firebase.jobs().push({
-			userId: authUser.uid,
-			username: this.state.username,
-			jobTitle: this.state.jobTitle,
-			jobLocation: this.state.jobLocation,
-			jobSummary: this.state.jobSummary,
-			jobDescription: this.state.jobDes,
-			timestamp: this.state.timestamp,
-			payRate: this.state.payRate,
-		});
-		event.preventDefault();
-	};
-
-	handleChange = (event) => {
-		this.setState(
-			{
-				[event.target.name]: event.target.value
-			}
-		);
-		console.log(this.state);
-	}
-
-	render(props) {
-		const { userId, username, jobTitle, jobLocation, jobSummary, jobDescription, timestamp, payRate } = this.state;
-		return (
-		<AuthUserContext.Consumer>
-		{authUser => (
-		<div>
-		<form onSubmit={(event, authUser)=>this.onCreateJob(event, authUser)}>
-		<input
-		type="text"
-		name="jobTitle"
-		placeholder="Enter Job Title"
-		value={jobTitle}
-		onChange={this.handleChange}
-		/>
-		<input
-		type="text"
-		placeholder="Enter Job Location"
-		name="jobLocation"
-		value={jobLocation}
-		onChange={this.handleChange}
-		/>
-		<input
-		type="text"
-		placeholder="Enter Job Summary"
-		name="jobSummary"
-		value={jobSummary}
-		onChange={this.handleChange}
-		/>
-		<input
-		type="text"
-		placeholder="Enter Job Description"
-		name="jobDescription"
-		value={jobDescription}
-		onChange={this.handleChange}
-		/>
-		<input
-		placeholder="Enter Pay Rate"
-		type="text"
-		name="payRate"
-		value={payRate}
-		onChange={this.handleChange}
-		/>
-		<button type="submit">Send</button>
-		</form>
-		</div>
-		)}
-		</AuthUserContext.Consumer>
-		);
-	}
-}
-
-
-
-class JobList extends Component {
-	constructor(props) {
-		super(props);
-	}
-	render() {
-		return (
-			<ul>
-			{this.props.jobs.map(job => (
-				<JobItem key={job.uid} message={job} />
-				))}
-			</ul>
-		);
-	}
-}
-
-// const JobList = ({ jobs }) => (
-// 	<ul>
-// 	{jobs.map(job => (
-// 		<JobItem key={job.uid} message={job} />
-// 		))}
-// 	</ul>
-// 	);
-
-class JobItem extends Component {
-	constructor(props) {
-		super(props);
-	}
-	render() {
-		return (
-			<li>
-			<strong>{this.props.job.userId}</strong>
-			{this.props.job.jobTitle}
-			{this.props.job.jobSummary}
-			{this.props.job.jobDescription}
-			{this.props.job.jobLocation}
-			{this.props.job.payRate}
-			{this.props.job.username}
-			{this.props.job.userId}
-			</li>
-		);
-	}
-}
+// class JobInput extends Component {
+// 	constructor(props) {
+// 		super(props);
+// 		this.state = {
+// 			userId: '',
+// 			username: '',
+// 			jobTitle: '',
+// 			jobLocation: '',
+// 			jobSummary: '',
+// 			jobDescription: '',
+// 			timestamp: '',
+// 			payRate: 15,
+// 		};
+// 	}
+//
+// 	componentDidMount() {
+//
+// 		console.log(this.props.firebase.jobs());
+// 	}
+// 	componentWillUnmount() {
+//
+// 	}
+// 	onCreateJob (event, authUser) {
+// 		//console.log("The userid is ", this.state.userId);
+// 		this.props.firebase.jobs().push({
+// 			userId: authUser.uid,
+// 			username: this.state.username,
+// 			jobTitle: this.state.jobTitle,
+// 			jobLocation: this.state.jobLocation,
+// 			jobSummary: this.state.jobSummary,
+// 			jobDescription: this.state.jobDes,
+// 			timestamp: this.state.timestamp,
+// 			payRate: this.state.payRate,
+// 		});
+// 		event.preventDefault();
+// 	};
+//
+// 	handleChange = (event) => {
+// 		this.setState(
+// 			{
+// 				[event.target.name]: event.target.value
+// 			}
+// 		);
+// 		console.log(this.state);
+// 	}
+//
+// 	render(props) {
+// 		const { userId, username, jobTitle, jobLocation, jobSummary, jobDescription, timestamp, payRate } = this.state;
+// 		return (
+// 		<AuthUserContext.Consumer>
+// 		{authUser => (
+// 		<div>
+// 		<form onSubmit={(event, authUser)=>this.onCreateJob(event, authUser)}>
+// 		<input
+// 		type="text"
+// 		name="jobTitle"
+// 		placeholder="Enter Job Title"
+// 		value={jobTitle}
+// 		onChange={this.handleChange}
+// 		/>
+// 		<input
+// 		type="text"
+// 		placeholder="Enter Job Location"
+// 		name="jobLocation"
+// 		value={jobLocation}
+// 		onChange={this.handleChange}
+// 		/>
+// 		<input
+// 		type="text"
+// 		placeholder="Enter Job Summary"
+// 		name="jobSummary"
+// 		value={jobSummary}
+// 		onChange={this.handleChange}
+// 		/>
+// 		<input
+// 		type="text"
+// 		placeholder="Enter Job Description"
+// 		name="jobDescription"
+// 		value={jobDescription}
+// 		onChange={this.handleChange}
+// 		/>
+// 		<input
+// 		placeholder="Enter Pay Rate"
+// 		type="text"
+// 		name="payRate"
+// 		value={payRate}
+// 		onChange={this.handleChange}
+// 		/>
+// 		<button type="submit">Send</button>
+// 		</form>
+// 		</div>
+// 		)}
+// 		</AuthUserContext.Consumer>
+// 		);
+// 	}
+// }
+//
+//
+//
+// class JobList extends Component {
+// 	constructor(props) {
+// 		super(props);
+// 	}
+// 	render() {
+// 		return (
+// 			<ul>
+// 			{this.props.jobs.map(job => (
+// 				<JobItem key={job.uid} message={job} />
+// 				))}
+// 			</ul>
+// 		);
+// 	}
+// }
+//
+// // const JobList = ({ jobs }) => (
+// // 	<ul>
+// // 	{jobs.map(job => (
+// // 		<JobItem key={job.uid} message={job} />
+// // 		))}
+// // 	</ul>
+// // 	);
+//
+// class JobItem extends Component {
+// 	constructor(props) {
+// 		super(props);
+// 	}
+// 	render() {
+// 		return (
+// 			<li>
+// 			<strong>{this.props.job.userId}</strong>
+// 			{this.props.job.jobTitle}
+// 			{this.props.job.jobSummary}
+// 			{this.props.job.jobDescription}
+// 			{this.props.job.jobLocation}
+// 			{this.props.job.payRate}
+// 			{this.props.job.username}
+// 			{this.props.job.userId}
+// 			</li>
+// 		);
+// 	}
+// }
 
 // const JobItem = ({ job }) => (
 // 	<li>
@@ -449,7 +451,7 @@ class JobItem extends Component {
 // 	{job.payRate}
 // 	</li>
 // 	);
-const JobInputFirebase = withFirebase(JobInput);
+//const JobInputFirebase = withFirebase(JobInput);
 
 const JobOuter = withFirebase(JobsBase);
 
@@ -459,7 +461,7 @@ export default compose(
 	withAuthentication,
 	)(AllJobs);
 
-
+/// Matthew Code
 
 class JobHeader extends React.Component {
 	constructor(props) {

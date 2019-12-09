@@ -153,9 +153,11 @@ class MessageItem extends Component {
 		const userObject = snapshot.val();
 			const username = userObject["username"];
 			console.log('The user name is ' + username);
-			const newList = this.state.fromList.concat(userObject["username"]);
-			console.log(newList);
-			this.setState({ fromList: newList });
+			// const newList = this.state.fromList.concat(userObject["username"]);
+			// console.log(newList);
+			// this.setState({ fromList: newList });
+			this.state.fromList.push(userObject["username"]);
+			console.log(this.state.fromList);
 		});
 		console.log(this.state.fromList);
 	}
