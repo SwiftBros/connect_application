@@ -862,6 +862,15 @@ export class Jobs extends React.Component {
 						<Col xs={4} className="mt-3">
 							<JobPosting />
 						</Col>
+						<Col xs={4} className="mt-3">
+							<JobPosting />
+						</Col>
+						<Col xs={4} className="mt-3">
+							<JobPosting />
+						</Col>
+						<Col xs={4} className="mt-3">
+							<JobPosting />
+						</Col>
 					</Row>
 				</Container>
 			</div>
