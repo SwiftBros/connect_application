@@ -159,7 +159,18 @@ class MessageItem extends Component {
 			this.state.fromList.push(userObject["username"]);
 			console.log(this.state.fromList);
 		});
-		console.log(this.state.fromList);
+		firebase.user(this.props.message.to).on('value', snapshot => {
+		console.log("hello");
+		const userObject = snapshot.val();
+			const username = userObject["username"];
+			console.log('The user name is ' + username);
+			// const newList = this.state.fromList.concat(userObject["username"]);
+			// console.log(newList);
+			// this.setState({ fromList: newList });
+			this.state.toList.push(userObject["username"]);
+			console.log(this.state.toList);
+		});
+		// console.log(this.state.fromList);
 	}
 
 	onToggleEditMode = () => {
