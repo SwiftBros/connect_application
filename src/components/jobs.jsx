@@ -10,7 +10,7 @@ class AllJobs extends Component {
 	render() {
 		return (
 			<div>
-			<h1>Rageeb Jobs Section</h1>
+			<JobHeader/>
 			<JobOuter />
 			</div>
 			);
@@ -89,53 +89,58 @@ class JobsBase extends Component {
 			<div>
 			{loading && <div>Loading ...</div>}
 			{jobs ? (
-				<MessageList onRemoveMessage={this.onRemoveMessage}
-				onEditMessage={this.onEditMessage} messages={jobs} firebase={this.props.firebase}/>
+					<MessageList onRemoveMessage={this.onRemoveMessage}
+					onEditMessage={this.onEditMessage} messages={jobs} firebase={this.props.firebase}/>
 				) : (
-				<div>There are no messages ...</div>
-				)}
+					<div>There are no messages ...</div>
+			)}
 				<form onSubmit={event => this.onCreateMessage(event, authUser)}>
-				<input
-				type="text"
-				name="jobTitle"
-				placeholder="jobTitle"
-				value={jobTitle}
-				onChange={this.onChangeText}
-				/>
-				<input
-				type="text"
-				name="jobLocation"
-				placeholder="jobLocation"
-				value={jobLocation}
-				onChange={this.onChangeText}
-				/>
-				<input
-				type="text"
-				name="jobSummary"
-				placeholder="jobSummary"
-				value={jobSummary}
-				onChange={this.onChangeText}
-				/>
-				<input
-				type="text"
-				name="jobDescription"
-				placeholder="jobDescription"
-				value={jobDescription}
-				onChange={this.onChangeText}
-				/>
-				<input
-				type="text"
-				name="payRate"
-				placeholder="jobDescription"
-				value={payRate}
-				onChange={this.onChangeText}
-				/>
-				<button type="submit">Send</button>
+					<input
+					type="text"
+					name="jobTitle"
+					placeholder="jobTitle"
+					value={jobTitle}
+					onChange={this.onChangeText}
+					/>
+
+					<input
+					type="text"
+					name="jobLocation"
+					placeholder="jobLocation"
+					value={jobLocation}
+					onChange={this.onChangeText}
+					/>
+
+					<input
+					type="text"
+					name="jobSummary"
+					placeholder="jobSummary"
+					value={jobSummary}
+					onChange={this.onChangeText}
+					/>
+
+					<input
+					type="text"
+					name="jobDescription"
+					placeholder="jobDescription"
+					value={jobDescription}
+					onChange={this.onChangeText}
+					/>
+
+					<input
+					type="text"
+					name="payRate"
+					placeholder="jobDescription"
+					value={payRate}
+					onChange={this.onChangeText}
+					/>
+
+					<button type="submit">Send</button>
 				</form>
 				</div>
 			)}
 			</AuthUserContext.Consumer>
-				);
+		);
 
 	}
 }
@@ -266,6 +271,8 @@ class MessageItem extends Component {
 			// sentAt: this.props.firebase.serverValue.TIMESTAMP,
 
 const MessageItemWithFirebase = withFirebase(MessageItem)
+
+const JobOuter = withFirebase(JobsBase);
 
 // const MessageItem = ({ message }) => (
 // 	<li>
@@ -453,9 +460,6 @@ const MessageItemWithFirebase = withFirebase(MessageItem)
 // 	</li>
 // 	);
 //const JobInputFirebase = withFirebase(JobInput);
-
-const JobOuter = withFirebase(JobsBase);
-
 
 export default compose(
 	withFirebase,
@@ -722,7 +726,6 @@ class JobPosting extends React.Component {
 
 
 // TODO: Use for loop to populate <JobPosting />s inside Container
-
 export class Jobs extends React.Component {
 	constructor(props){
 		super(props);
