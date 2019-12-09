@@ -68,6 +68,9 @@ const UserList = ({ users }) => (
 		<span>
 		<strong>Usertype:</strong> {user.usertype}
 		</span>
+		<span>
+		<strong>Messages:</strong> {user.messages}
+		</span>
 		</li>
 		))}
 	</ul>
@@ -82,6 +85,7 @@ const Admin = withFirebase(AdminPage);
 		email: '',
 		passwordOne: '',
 		passwordTwo: '',
+		messages: [],
 		usertype: 'Youth',
 		error: null,
 	};
@@ -94,7 +98,7 @@ const Admin = withFirebase(AdminPage);
 				<h1>SignUp</h1>
 				<SignUpForm />
 				<Admin />
-				</div>			
+				</div>
 				);
 		}
 	};
@@ -123,7 +127,7 @@ class SignUpFormBase extends Component {
 		this.state = { ...INITIAL_STATE };
 	}
 	onSubmit = event => {
-		const { username, email, passwordOne, usertype } = this.state;
+		const { username, email, passwordOne, messages, usertype } = this.state;
 		this.props.firebase
 		.doCreateUserWithEmailAndPassword(email, passwordOne)
 		.then(authUser => {
@@ -134,6 +138,7 @@ class SignUpFormBase extends Component {
 				username,
 				email,
 				usertype,
+				messages,
 			});
 			this.props.history.push('/');
 		})
@@ -153,13 +158,14 @@ class SignUpFormBase extends Component {
 		this.setState({usertype: event.target.value});
 	}
 	render() {
-		console.log(this.state.usertype); 
+		console.log(this.state.usertype);
 		const {
 			username,
 			email,
 			passwordOne,
 			passwordTwo,
 			error,
+			messages
 		} = this.state;
 
 		const isInvalid =

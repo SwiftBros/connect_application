@@ -1,44 +1,465 @@
-import React from "react";
+import React, {Component} from "react";
 import { Row, Col, Form, FormControl, Button, Container, Modal } from 'react-bootstrap';
+import { withAuthentication, AuthUserContext } from './Session';
+import { compose } from 'recompose';
 import { FirebaseContext, withFirebase } from './Firebase';
 
-// class Wrapper extends React.Component {
-// 	constructor(props) {
-// 		super(props);
-// 	}
+
+class AllJobs extends Component {
+	render() {
+		return (
+			<div>
+			<h1>Rageeb Jobs Section</h1>
+			<JobOuter />
+			</div>
+			);
+	}
+}
+
+
+class JobsBase extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			userId: '',
+			jobTitle: '',
+			jobLocation: '',
+			jobSummary: '',
+			jobDescription: '',
+			timestamp: '',
+			payRate: 15,
+			loading: false,
+			jobs: [],
+		};
+	}
+	componentDidMount() {
+		this.setState({ loading: true });
+		this.props.firebase.jobs().on('value', snapshot => {
+			const jobObject = snapshot.val();
+			if (jobObject) {
+			// convert messages list from snapshot
+			const jobList = Object.keys(jobObject).map(key => ({ ...jobObject[key], uid: key,}));
+			this.setState({ jobs: jobList, loading: false });
+		} else {
+			this.setState({ jobs: null, loading: false });
+		}
+	});
+	}
+	componentWillUnmount() {
+		this.props.firebase.jobs().off();
+	}
+
+	onChangeText = event => {
+		console.log(this.state);
+		this.setState({ [event.target.name]: event.target.value });
+	};
+	onCreateMessage = (event, authUser) => {
+		this.props.firebase.jobs().push({
+			userId: authUser.uid,
+			jobTitle: this.state.jobTitle,
+			jobLocation: this.state.jobLocation,
+			jobSummary: this.state.jobSummary,
+			jobDescription: this.state.jobDescription,
+			timestamp: 'timestamp',
+			payRate: 15,
+		});
+		this.setState({ text: '' });
+		event.preventDefault();
+	};
+
+	render() {
+		const { userId, jobTitle, jobLocation, jobSummary, jobDescription, timestamp, payRate, loading, jobs} = this.state;
+		return (
+			<AuthUserContext.Consumer>
+			{authUser => (
+			<div>
+			{loading && <div>Loading ...</div>}
+			{jobs ? (
+				<MessageList messages={jobs} firebase={this.props.firebase}/>
+				) : (
+				<div>There are no messages ...</div>
+				)}
+				<form onSubmit={event => this.onCreateMessage(event, authUser)}>
+				<input
+				type="text"
+				name="jobTitle"
+				placeholder="jobTitle"
+				value={jobTitle}
+				onChange={this.onChangeText}
+				/>
+				<input
+				type="text"
+				name="jobLocation"
+				placeholder="jobLocation"
+				value={jobLocation}
+				onChange={this.onChangeText}
+				/>
+				<input
+				type="text"
+				name="jobSummary"
+				placeholder="jobSummary"
+				value={jobSummary}
+				onChange={this.onChangeText}
+				/>
+				<input
+				type="text"
+				name="jobDescription"
+				placeholder="jobDescription"
+				value={jobDescription}
+				onChange={this.onChangeText}
+				/>
+				<input
+				type="text"
+				name="payRate"
+				placeholder="jobDescription"
+				value={payRate}
+				onChange={this.onChangeText}
+				/>
+				<button type="submit">Send</button>
+				</form>
+				</div>
+			)}
+			</AuthUserContext.Consumer>
+				);
+
+	}
+}
+
+const MessageList = ({ messages, firebase }) => (
+	<ul>
+	{messages.map(message => (
+		<MessageItemWithFirebase key={message.uid} message={message} firebase={firebase}/>
+		))}
+	</ul>
+	);
+
+class MessageItem extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			currentUser: '',
+			message: '',
+		}
+	}
+	componentDidMount() {
+		var firebase = this.props.firebase;
+		var job = this.props.message;
+		console.log("this is firebase " + firebase);
+		var nice = '';
+	 	firebase.user(job.userId).on('value', snapshot => {
+			const userObject = snapshot.val();
+			this.setState({currentUser: userObject["username"]});
+			return userObject["username"];
+		})
+		console.log(this.state.currentUser);
+	}
+	onApply = (event, authUser) => {
+		console.log(this.state.message);
+		var currentJob = this.props.message;
+		this.props.firebase.messages().push({
+			userId: authUser.uid,
+			to: this.state.currentUser,
+			text: this.state.message,
+		});
+		event.preventDefault();
+	}
+	onChangeText = (event) => {
+		this.setState({message: event.target.value });
+		console.log(this.state.message);
+	}
+	render() {
+		// console.log(this.state.currentUser);
+		var firebase = this.props.firebase;
+		var job = this.props.message;
+		return (
+			<AuthUserContext.Consumer>
+			{authUser => (
+			<div>
+			<li>
+			<strong>{job.userId}</strong>-
+			<strong>{job.jobTitle}</strong>-
+			<strong>{job.jobLocation}</strong>-
+			<strong>{job.jobSummary}</strong>-
+			<strong>{job.jobDescription}</strong>-
+			<strong>{job.payRate}</strong>-
+			<strong>The person who posted this job is
+			{
+				' ' + this.state.currentUser
+			}
+			</strong>
+			<form onSubmit={event => this.onApply(event, authUser)}>
+			<input
+			type="text"
+			name="message"
+			placeholder="Enter message"
+			value={this.state.message}
+			onChange={this.onChangeText}
+			/>
+			<button type="submit">Send</button>
+			</form>
+			</li>
+			</div>
+		)}
+			</ AuthUserContext.Consumer>
+		);
+	}
+}
+
+
+			// from: authUser.uid,
+			// to: this.state.currentUser,
+			// text: this.state.message,
+			// sentAt: this.props.firebase.serverValue.TIMESTAMP,
+
+const MessageItemWithFirebase = withFirebase(MessageItem)
+
+// const MessageItem = ({ message }) => (
+// 	<li>
+// 	<strong>{message.userId}</strong>-
+// 	<strong>{message.jobTitle}</strong>-
+// 	<strong>{message.jobLocation}</strong>-
+// 	<strong>{message.jobSummary}</strong>-
+// 	<strong>{message.jobDescription}</strong>-
+// 	<strong>{message.payRate}</strong>
+// 	</li>
+// 	);
+
+// const { loading, jobs } = this.state;
+// return (
+// 	<div>
+// 	{loading && <div>Loading ...</div>}
+// 	{jobs ? (
+// 		<div>
+// 		<JobList jobs={jobs} />
+// 		<p>Hello</p>
+// 		<JobInputFirebase />
+// 		</div>
+// 		) : (
+// 		<div>There are no jobs...
+// 		<p>Hello</p>
+// 		<JobInputFirebase />
+// 		</div>
 //
-// 	render(){
-// 		console.log("INSIDE JOBS WRAPPER");
-// 		const jobsRef = this.props.firebase.db.ref('jobs');
-// 		jobsRef.on('value', function(snapshot) {
-// 			snapshot.forEach(function(snapshotRef) {
-// 				var val = snapshotRef.val();
-//
-// 				console.log(val);
-// 			});
-// 		}, function(errorObj) {
-// 			console.log("The read failed: " + errorObj.code);
-// 		});
-//
-// 		return (
-// 			<div>TEST WRAPPER</div>
 // 		)
 // 	}
-// }
-// export const testWrapper = withFirebase(Wrapper);
+// 	</div>
+// );
+
+
+class JobInput extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			userId: '',
+			username: '',
+			jobTitle: '',
+			jobLocation: '',
+			jobSummary: '',
+			jobDescription: '',
+			timestamp: '',
+			payRate: 15,
+		};
+	}
+
+	componentDidMount() {
+
+		console.log(this.props.firebase.jobs());
+	}
+	componentWillUnmount() {
+
+	}
+	onCreateJob (event, authUser) {
+		//console.log("The userid is ", this.state.userId);
+		this.props.firebase.jobs().push({
+			userId: authUser.uid,
+			username: this.state.username,
+			jobTitle: this.state.jobTitle,
+			jobLocation: this.state.jobLocation,
+			jobSummary: this.state.jobSummary,
+			jobDescription: this.state.jobDes,
+			timestamp: this.state.timestamp,
+			payRate: this.state.payRate,
+		});
+		event.preventDefault();
+	};
+
+	handleChange = (event) => {
+		this.setState(
+			{
+				[event.target.name]: event.target.value
+			}
+		);
+		console.log(this.state);
+	}
+
+	render(props) {
+		const { userId, username, jobTitle, jobLocation, jobSummary, jobDescription, timestamp, payRate } = this.state;
+		return (
+		<AuthUserContext.Consumer>
+		{authUser => (
+		<div>
+		<form onSubmit={(event, authUser)=>this.onCreateJob(event, authUser)}>
+		<input
+		type="text"
+		name="jobTitle"
+		placeholder="Enter Job Title"
+		value={jobTitle}
+		onChange={this.handleChange}
+		/>
+		<input
+		type="text"
+		placeholder="Enter Job Location"
+		name="jobLocation"
+		value={jobLocation}
+		onChange={this.handleChange}
+		/>
+		<input
+		type="text"
+		placeholder="Enter Job Summary"
+		name="jobSummary"
+		value={jobSummary}
+		onChange={this.handleChange}
+		/>
+		<input
+		type="text"
+		placeholder="Enter Job Description"
+		name="jobDescription"
+		value={jobDescription}
+		onChange={this.handleChange}
+		/>
+		<input
+		placeholder="Enter Pay Rate"
+		type="text"
+		name="payRate"
+		value={payRate}
+		onChange={this.handleChange}
+		/>
+		<button type="submit">Send</button>
+		</form>
+		</div>
+		)}
+		</AuthUserContext.Consumer>
+		);
+	}
+}
+
+
+
+class JobList extends Component {
+	constructor(props) {
+		super(props);
+	}
+	render() {
+		return (
+			<ul>
+			{this.props.jobs.map(job => (
+				<JobItem key={job.uid} message={job} />
+				))}
+			</ul>
+		);
+	}
+}
+
+// const JobList = ({ jobs }) => (
+// 	<ul>
+// 	{jobs.map(job => (
+// 		<JobItem key={job.uid} message={job} />
+// 		))}
+// 	</ul>
+// 	);
+
+class JobItem extends Component {
+	constructor(props) {
+		super(props);
+	}
+	render() {
+		return (
+			<li>
+			<strong>{this.props.job.userId}</strong>
+			{this.props.job.jobTitle}
+			{this.props.job.jobSummary}
+			{this.props.job.jobDescription}
+			{this.props.job.jobLocation}
+			{this.props.job.payRate}
+			{this.props.job.username}
+			{this.props.job.userId}
+			</li>
+		);
+	}
+}
+
+// const JobItem = ({ job }) => (
+// 	<li>
+// 	<strong>{job.userId}</strong>
+// 	{job.jobTitle}
+// 	{job.jobSummary}
+// 	{job.jobDescription}
+// 	{job.jobLocation}
+// 	{job.payRate}
+// 	</li>
+// 	);
+const JobInputFirebase = withFirebase(JobInput);
+
+const JobOuter = withFirebase(JobsBase);
+
+
+export default compose(
+	withFirebase,
+	withAuthentication,
+	)(AllJobs);
+
+
 
 class JobHeader extends React.Component {
 	constructor(props) {
-		super(props)
+		super(props);
+		this.state = {
+			loading: false,
+			uid: '',
+			username: '',
+			jobTitle: '',
+			jobSummary: '',
+			jobDes: '',
+			timestamp: '',
+			payRate: 0,
+			show: false,
+		};
 	}
 
+	componentDidMount() {
+		this.setState({ loading: true });
+	}
+	componentWillUnmount() {
+	}
+
+	onCreateJob = event => {
+		this.props.firebase.jobs().push({
+			uid: this.state.uid,
+			username: this.state.username,
+			jobTitle: this.state.jobTitle,
+			jobLocation: this.state.jobLocation,
+			jobSummary: this.state.jobSummary,
+			jobDescription: this.state.jobDes,
+			timestamp: this.state.timestamp,
+			payRate: this.state.payRate,
+		});
+		this.setState({ text: '' });
+		event.preventDefault();
+	};
+
+	handleChange = (event) => {
+		this.setState(
+			{
+				[event.target.name]: event.target.value
+			}
+		);
+		console.log(this.state.jobTitle);
+	}
+
+
+
 	render() {
-		// const jobsRef = this.props.firebase.db.ref('jobs');
-		//
-		// jobsRef.on('value', snapshot => {
-		// 	console.log("Inside JobHeader");
-		// 	console.log(snapshot.val());
-		// });
+		var self = this;
 
 		function PostAJob() {
 		  const [show, setShow] = React.useState(false);
@@ -54,25 +475,26 @@ class JobHeader extends React.Component {
 		          <Modal.Title>Create a Job Posting</Modal.Title>
 		        </Modal.Header>
 		        <Modal.Body>
-							<Form>
+							<Form onSubmit={self.onCreateJob}>
 								<Form.Group controlId="formJobTitle">
 									<Form.Label>Job Title</Form.Label>
-									<Form.Control type="text" placeholder="Enter a job title"></Form.Control>
+									<Form.Control type="text" name="jobTitle" onChange={self.handleChange} name="jobTitle" >
+									</Form.Control>
 								</Form.Group>
 
 								<Form.Group controlId="formJobLocation">
 									<Form.Label>Job Location</Form.Label>
-									<Form.Control type="text" placeholder="Where is this job located?"></Form.Control>
+									<Form.Control></Form.Control>
 								</Form.Group>
 
 								<Form.Group controlId="formJobSummary">
 									<Form.Label>Job Summary</Form.Label>
-									<Form.Control type="text" placeholder="Provide a short summary"></Form.Control>
+									<Form.Control type="text" name="jobSummary" placeholder="Provide a short summary"></Form.Control>
 								</Form.Group>
 
 								<Form.Group controlId="formJobSummary">
 									<Form.Label>Job Description</Form.Label>
-									<Form.Control as="textarea" rows="8" placeholder="Provide the job description, requirements, etc."></Form.Control>
+									<Form.Control as="textarea" rows="8" placeholder="Provide the job description  requirements, etc."></Form.Control>
 								</Form.Group>
 
 								<Form.Group controlId="formPayRate">
@@ -246,6 +668,7 @@ class JobPosting extends React.Component {
 
 
 // TODO: Use for loop to populate <JobPosting />s inside Container
+
 export class Jobs extends React.Component {
 	constructor(props){
 		super(props);
@@ -269,6 +692,7 @@ export class Jobs extends React.Component {
 
 		return (
 			<div>
+				<AllJobs />
 				<JobHeader />
 
 				<Container>

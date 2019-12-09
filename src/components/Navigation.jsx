@@ -14,6 +14,7 @@ import SignInPage from './login.jsx';
 import { HomePage } from './HomePage.js';
 import SignUpPage from './signup.jsx';
 import SignOutButton from './signout.jsx';
+import Messages from './messages.jsx';
 import { AuthUserContext } from './Session';
 import {test} from './test.js'
 
@@ -69,7 +70,7 @@ class NavigationAuth extends React.Component {
           </Nav.Link>
           <Nav.Link href="#link">
           <li>
-          <Link className="text-dark" to="/topics">Topics</Link>
+          <Link className="text-dark" to="/messages">Messages</Link>
           </li>
           </Nav.Link>
           <Nav.Link className="btn btn-info ml-2" href="#link">
@@ -87,7 +88,7 @@ class NavigationAuth extends React.Component {
           <Route exact path="/" component={Home} />
           <Route path="/about" component={test} />
           <Route path="/jobs" component={Jobs} />
-          <Route path="/topics" component={Topics} />
+          <Route path="/messages" component={Messages} />
           <Route path="/signout" component={SignOutButton} />
           </Switch>
           </div>
@@ -125,11 +126,6 @@ class NavigationAuth extends React.Component {
           <Link className="text-dark" to="/jobs">Jobs</Link>
           </li>
           </Nav.Link>
-          <Nav.Link href="#link">
-          <li>
-          <Link className="text-dark" to="/topics">Topics</Link>
-          </li>
-          </Nav.Link>
           <Nav.Link className="btn btn-primary" href="#link">
           <li>
           <Link className="text-light" to="/login">Login</Link>
@@ -150,7 +146,6 @@ class NavigationAuth extends React.Component {
           <Route exact path="/" component={Home} />
           <Route path="/about" component={test} />
           <Route path="/jobs" component={Jobs} />
-          <Route path="/topics" component={Topics} />
           <Route path="/login" component={SignInPage} />
           <Route path="/signup" component={SignUpPage} />
           </Switch>
