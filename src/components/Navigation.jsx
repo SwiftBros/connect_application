@@ -39,7 +39,7 @@ class NavigationAuth extends React.Component {
   }
 
   onLoggedIn() {
-    
+
   }
   render() {
       var navbarStyle = {
@@ -60,7 +60,7 @@ class NavigationAuth extends React.Component {
           <Nav className="ml-auto">
           <Nav.Link href="#link">
           <li>
-          <Link className="text-dark" to="/about">About</Link>
+          <Link className="text-dark" to="/profile">Profile</Link>
           </li>
           </Nav.Link>
           <Nav.Link href="#link">
@@ -86,7 +86,7 @@ class NavigationAuth extends React.Component {
 
           <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/about" component={test} />
+          <Route path="/profile" component={test} />
           <Route path="/jobs" component={Jobs} />
           <Route path="/messages" component={Messages} />
           <Route path="/signout" component={SignOutButton} />
@@ -116,16 +116,7 @@ class NavigationAuth extends React.Component {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
-          <Nav.Link href="#link">
-          <li>
-          <Link className="text-dark" to="/about">About</Link>
-          </li>
-          </Nav.Link>
-          <Nav.Link href="#link">
-          <li>
-          <Link className="text-dark" to="/jobs">Jobs</Link>
-          </li>
-          </Nav.Link>
+
           <Nav.Link className="btn btn-primary" href="#link">
           <li>
           <Link className="text-light" to="/login">Login</Link>
@@ -144,8 +135,7 @@ class NavigationAuth extends React.Component {
 
           <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/about" component={test} />
-          <Route path="/jobs" component={Jobs} />
+          
           <Route path="/login" component={SignInPage} />
           <Route path="/signup" component={SignUpPage} />
           </Switch>

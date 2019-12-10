@@ -98,7 +98,6 @@ const Admin = withFirebase(AdminPage);
 				<div>
 				<h1 className="text-center">Sign Up</h1>
 				<SignUpForm />
-				
 				</div>
 				);
 		}
