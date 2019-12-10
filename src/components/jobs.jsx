@@ -9,6 +9,7 @@ import { FirebaseContext, withFirebase } from './Firebase';
 
 var show = {display: 'block'};
 var hide = {display: 'none'};
+var userMain = '';
 
 class AllJobs extends Component {
 	render() {
@@ -326,6 +327,10 @@ class MessageItem extends Component {
 		console.log(this.state.message);
 	}
 
+	handleMessage = (gotMessage) => {
+		this.setState({message: gotMessage});
+		console.log(gotMessage);
+	}
 	render() {
 		var firebase = this.props.firebase;
 		var job = this.props.message;
@@ -361,6 +366,10 @@ class MessageItem extends Component {
 		var self = this;
 
 		function LearnMore() {
+
+			function handleApplyMessage (event) {
+				self.setState({message: event.target.value });
+			}
 		  const [show, setShow] = React.useState(false);
 
 		  const handleClose = () => setShow(false);
@@ -408,16 +417,22 @@ class MessageItem extends Component {
 								<br />
 								{ job.jobDescription }
 							</p>
+
+							 <InputResumeFirebase textmessage={self.handleMessage}
+							 currentUserId={self.state.currentUserId}
+							 />
 						</Modal.Body>
+
 		        <Modal.Footer>
 		          <Button variant="secondary" onClick={handleClose}>
 		            Close
 		          </Button>
-		          <Button variant="primary" onClick={handleClose}>
+		          <Button variant="primary" onClick={self.onApply}>
 		            Apply
 		          </Button>
 		        </Modal.Footer>
 		      </Modal>
+
 		    </>
 		  );
 		}
@@ -426,6 +441,7 @@ class MessageItem extends Component {
 			<AuthUserContext.Consumer>
 				{authUser => (
 					<Container className="bg-light border border-light rounded">
+
 						<Row>
 							<Col>
 								<span style={ posterName }>{ this.state.currentUser }</span>
@@ -471,6 +487,8 @@ class MessageItem extends Component {
 								<button type="button" onClick={() => this.props.onRemoveMessage(this.props.message.uid)}>
 									Delete
 								</button>
+
+
 								<LearnMore />
 							</Col>
 						</Row>
@@ -480,6 +498,53 @@ class MessageItem extends Component {
 		);
 	}
 }
+
+
+class InputResume extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			text: '',
+		}
+	}
+	onClicked = (event) => {
+		this.props.textmessage(this.state.text);
+	}
+	onChange = (event) => {
+		this.setState({text: event.target.value });
+	}
+	onApply = (event, authUser) => {
+		console.log(this.state.message);
+		var currentJob = this.props.message;
+		// this.props.firebase.jobs().on('value', snapshot => {
+		// 	const job = snapshot.val().key;
+		// 	console.log(job);
+		console.log(authUser);
+		// })
+		// var self = this;
+		this.props.firebase.messages().push({
+			from: this.props.currentUserId,
+			to: this.props.currentUserId,
+			text: this.state.text,
+			timestamp: Date.now(),
+		});
+		alert('Your Application has been submitted!');
+
+		event.preventDefault();
+	}
+	render() {
+		return (
+
+		<div>
+		<input type="text" value={this.state.text} onChange={this.onChange}>
+		</input>
+		<Button onClick={(event, authUser)=>this.onApply(event, authUser)}> Apply</Button>
+		</div>
+	);
+	}
+}
+
+const InputResumeFirebase = withFirebase(InputResume);
 
 
 			// from: authUser.uid,
