@@ -332,6 +332,7 @@ class MessageItem extends Component {
 		this.setState({message: gotMessage});
 		console.log(gotMessage);
 	}
+
 	render() {
 		var firebase = this.props.firebase;
 		var job = this.props.message;
@@ -375,7 +376,7 @@ class MessageItem extends Component {
 
 		  const handleClose = () => setShow(false);
 		  const handleShow = () => setShow(true);
-
+			console.log("Current user: " + self.state.currentUser);
 		  return (
 		    <>
 		      <Button className="float-right" variant="outline-info" onClick={handleShow}>
