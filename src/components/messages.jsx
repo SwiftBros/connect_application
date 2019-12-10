@@ -70,8 +70,7 @@ class MessagesBase extends Component {
 			if (messageObject) {
 				console.log(Object.keys(messageObject));
 				for (let key in messageObject) {
-					if (messageObject[key]["from"] == this.state.currentUser ||
-					messageObject[key]["to"] == this.state.currentUser) {
+					if (true) {
 
 						console.log("Yassss, this is it");
 						messageList.push({...messageObject[key], uid: key,})
@@ -151,6 +150,9 @@ class MessagesBase extends Component {
 				);
 	}
 }
+
+// messageObject[key]["from"] == this.state.currentUser ||
+// messageObject[key]["to"] == this.state.currentUser
 
 const MessageList = ({ messages, onRemoveMessage, onEditMessage, }) => (
 	<ul>

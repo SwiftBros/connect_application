@@ -441,6 +441,7 @@ class MessageItem extends Component {
 		return (
 			<AuthUserContext.Consumer>
 				{authUser => (
+
 					<Container className="bg-light border border-light rounded">
 
 						<Row>
@@ -524,7 +525,7 @@ class InputResume extends Component {
 		// })
 		// var self = this;
 		this.props.firebase.messages().push({
-			from: this.props.currentUserId,
+			from: authUser.uid,
 			to: this.props.currentUserId,
 			text: this.state.text,
 			timestamp: Date.now(),
@@ -535,12 +536,15 @@ class InputResume extends Component {
 	}
 	render() {
 		return (
-
+			<AuthUserContext.Consumer>
+				{authUser => (
 		<div>
 		<input type="text" value={this.state.text} onChange={this.onChange}>
 		</input>
 		<Button onClick={(event, authUser)=>this.onApply(event, authUser)}> Apply</Button>
 		</div>
+		)}
+		</AuthUserContext.Consumer>
 	);
 	}
 }
