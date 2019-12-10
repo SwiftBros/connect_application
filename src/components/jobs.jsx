@@ -84,6 +84,17 @@ class JobsBase extends Component {
 		this.setState({ [event.target.name]: event.target.value });
 	};
 
+	clearOutJobForm = () => {
+		this.setState({
+			jobTitle: '',
+			jobLocation: '',
+			jobSummary: '',
+			jobDescription: '',
+			timestamp: '',
+			payRate: 15,
+		});
+	}
+
 	onCreateMessage = (event, authUser) => {
 		var self = this;
 		this.props.firebase.jobs().push({
@@ -97,6 +108,7 @@ class JobsBase extends Component {
 			messages: "Placeholder",
 		});
 		this.setState({ text: '' });
+		this.clearOutJobForm();
 		this.toggleJobForm();
 		event.preventDefault();
 	};
