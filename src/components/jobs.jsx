@@ -200,6 +200,7 @@ class JobsBase extends Component {
 										placeholder="Provide the job description, requirements, etc."
 										value={jobDescription}
 										onChange={this.onChangeText}
+										style={{ whiteSpace: 'pre-line' }}
 									>
 									</Form.Control>
 								</Form.Group>
