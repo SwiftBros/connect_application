@@ -313,7 +313,7 @@ class MessageItem extends Component {
 					/>
 					) : (
 					<div>
-						<Container className="bg-light border border-light rounded">
+						<Container style={{backgroundColor: '#31edf7'}}className="border border-light rounded">
 							<Row>
 								<Col>
 									<div>From: {this.state.fromList[0]}</div>
