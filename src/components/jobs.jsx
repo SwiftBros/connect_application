@@ -420,24 +420,27 @@ class MessageItem extends Component {
 								{ job.jobDescription }
 							</p>
 
-							 <InputResumeFirebase textmessage={self.handleMessage}
-							 currentUserId={self.state.currentUserId}
-							 />
+
 						</Modal.Body>
 
 		        <Modal.Footer>
+							<InputResumeFirebase textmessage={self.handleMessage}
+							currentUserId={self.state.currentUserId}
+							/>
 		          <Button variant="secondary" onClick={handleClose}>
 		            Close
 		          </Button>
-		          <Button variant="primary" onClick={self.onApply}>
-		            Apply
-		          </Button>
+							<div id="someApplyButton">
+							</div>
 		        </Modal.Footer>
 		      </Modal>
 
 		    </>
 		  );
 		}
+		// <Button variant="primary" onClick={self.onApply}>
+		// 	Apply
+		// </Button>
 
 		return (
 			<AuthUserContext.Consumer>
@@ -537,15 +540,27 @@ class InputResume extends Component {
 
 		event.preventDefault();
 	}
+
+	// <input type="text" value={this.state.text} onChange={this.onChange}>
+	// </input>
 	render() {
 		return (
 			<AuthUserContext.Consumer>
 				{authUser => (
 					userMain = authUser.uid,
 		<div>
-		<input type="text" value={this.state.text} onChange={this.onChange}>
-		</input>
-		<Button onClick={(event, authUser) => this.onApply(event, authUser)}> Apply</Button>
+
+		<Form className="form-inline">
+			<Form.Group>
+			<Form.Control
+				type="text"
+				value={this.state.text}
+				onChange={this.onChange}
+			>
+			</Form.Control>
+			<Button className="ml-2" onClick={(event, authUser) => this.onApply(event, authUser)}> Apply</Button>
+			</Form.Group>
+		</Form>
 		</div>
 		)}
 		</AuthUserContext.Consumer>
