@@ -381,7 +381,7 @@ class MessageItem extends Component {
 							</div>
 
 							<div>
-								<span className="font-weight-bold">Pay Rate: </span>
+								<span className="font-weight-bold">Pay Rate: </span>$
 								<span>{ job.payRate }</span>
 							</div>
 
