@@ -1,169 +1,49 @@
-// function JobsPageHeader() {
-// 	return (
-// 		<div>
-// 			<div className="text-center">
-// 				<h1>Job Board</h1>
-// 				<div className="d-flex justify-content-center mr-3">
-// 					<Form className="form-inline">
-// 						<Form.Control type="text" placeholder="Search" />
-// 						<Button className="ml-1 mr-3" variant="outline-success">Search</Button>
-// 					</Form>
-// 					<Button onClick={self.toggleJobForm}variant="primary">Post a Job</Button>
-// 				</div>
-// 			</div>
-//
-// 			<div id="jobForm" ref="jobFormRef">
-// 				<Container className="mt-5">
-// 					<Row>
-// 						<Col xs={4}>
-// 						</Col>
-// 						<Col s={4}>
-// 							<Form onSubmit={event => self.onCreateMessage(event, self.authUser)}>
-// 								<Form.Group controlId="formJobTitle">
-// 									<Form.Label>Job Title</Form.Label>
-// 									<Form.Control
-// 										type="text"
-// 										name="jobTitle"
-// 										placeholder="Enter a job title"
-// 										value={jobTitle}
-// 										onChange={self.onChangeText}
-// 									>
-// 									</Form.Control>
-// 								</Form.Group>
-//
-// 								<Form.Group controlId="formJobLocation">
-// 									<Form.Label>Job Location</Form.Label>
-// 									<Form.Control
-// 										type="text"
-// 										name="jobLocation"
-// 										placeholder="Where is this job located?"
-// 										value={jobLocation}
-// 										onChange={self.onChangeText}
-// 									>
-// 									</Form.Control>
-// 								</Form.Group>
-//
-// 								<Form.Group controlId="formJobSummary">
-// 									<Form.Label>Job Summary</Form.Label>
-// 									<Form.Control
-// 										type="text"
-// 										name="jobSummary"
-// 										placeholder="Provide a short summary"
-// 										value={jobSummary}
-// 										onChange={self.onChangeText}
-// 									>
-// 									</Form.Control>
-// 								</Form.Group>
-//
-// 								<Form.Group controlId="formJobDescription">
-// 									<Form.Label>Job Description</Form.Label>
-// 									<Form.Control
-// 										as="textarea"
-// 										rows="8"
-// 										name="jobDescription"
-// 										placeholder="Provide the job description, requirements, etc."
-// 										value={jobDescription}
-// 										onChange={self.onChangeText}
-// 									>
-// 									</Form.Control>
-// 								</Form.Group>
-//
-// 								<Form.Group controlId="formPayRate">
-// 									<Form.Label>Pay Rate ($)</Form.Label>
-// 									<Form.Control
-// 										type="text"
-// 										name="payRate"
-// 										placeholder="Enter the pay rate"
-// 										value={payRate}
-// 										onChange={self.onChangeText}
-// 									>
-// 									</Form.Control>
-// 									<br />
-// 									<div style={{float: 'right'}}>
-// 										<Button type="submit" variant="success" className="ml-1">
-// 											Post Job
-// 										</Button>
-// 									</div>
-// 								</Form.Group>
-// 							</Form>
-// 						</Col>
-// 						<Col xs={4}>
-// 						</Col>
-// 					</Row>
-// 				</Container>
-// 			</div>
-// 			<hr />
-// 		</div>
-//
-//
-// 	)
-// }
+return (
+  <Router>
+  <div>
+  <div className="">
+  <ul style={navbarStyle} className="mb-0">
+  <Navbar bg="light" expand="lg">
+  <Navbar.Brand href="#home">
+  <Link className="text-info font-weight-bold" to="/">CONNECT</Link>
+  </Navbar.Brand>
+  <Navbar.Toggle aria-controls="basic-navbar-nav" />
+  <Navbar.Collapse id="basic-navbar-nav">
+  <Nav className="ml-auto">
+  <Nav.Link href="#link">
+  <li>
+  <Link className="text-dark" to="/profile">Profile</Link>
+  </li>
+  </Nav.Link>
+  <Nav.Link href="#link">
+  <li>
+  <Link className="text-dark" to="/jobs">Jobs</Link>
+  </li>
+  </Nav.Link>
+  <Nav.Link className="btn btn-primary" href="#link">
+  <li>
+  <Link className="text-light" to="/login">Login</Link>
+  </li>
+  </Nav.Link>
+  <Nav.Link className="btn btn-info ml-2" href="#link">
+  <li>
+  <Link className="text-light" to="/signup">Sign Up</Link>
+  </li>
+  </Nav.Link>
+  </Nav>
+  </Navbar.Collapse>
+  </Navbar>
+  </ul>
+  </div>
 
-<Form onSubmit={event => self.onCreateMessage(event, self.authUser)}>
-	<Form.Group controlId="formJobTitle">
-		<Form.Label>Job Title</Form.Label>
-		<Form.Control
-			type="text"
-			name="jobTitle"
-			placeholder="Enter a job title"
-			value={jobTitle}
-			onChange={self.onChangeText}
-		>
-		</Form.Control>
-	</Form.Group>
+  <Switch>
+  <Route exact path="/" component={Home} />
+  <Route path="/profile" component={test} />
+  <Route path="/jobs" component={Jobs} />
+  <Route path="/login" component={SignInPage} />
+  <Route path="/signup" component={SignUpPage} />
+  </Switch>
+  </div>
+  </Router>
 
-	<Form.Group controlId="formJobLocation">
-		<Form.Label>Job Location</Form.Label>
-		<Form.Control
-			type="text"
-			name="jobLocation"
-			placeholder="Where is this job located?"
-			value={jobLocation}
-			onChange={self.onChangeText}
-		>
-		</Form.Control>
-	</Form.Group>
-
-	<Form.Group controlId="formJobSummary">
-		<Form.Label>Job Summary</Form.Label>
-		<Form.Control
-			type="text"
-			name="jobSummary"
-			placeholder="Provide a short summary"
-			value={jobSummary}
-			onChange={self.onChangeText}
-		>
-		</Form.Control>
-	</Form.Group>
-
-	<Form.Group controlId="formJobDescription">
-		<Form.Label>Job Description</Form.Label>
-		<Form.Control
-			as="textarea"
-			rows="8"
-			name="jobDescription"
-			placeholder="Provide the job description, requirements, etc."
-			value={jobDescription}
-			onChange={self.onChangeText}
-		>
-		</Form.Control>
-	</Form.Group>
-
-	<Form.Group controlId="formPayRate">
-		<Form.Label>Pay Rate ($)</Form.Label>
-		<Form.Control
-			type="text"
-			name="payRate"
-			placeholder="Enter the pay rate"
-			value={payRate}
-			onChange={self.onChangeText}
-		>
-		</Form.Control>
-		<br />
-		<div style={{float: 'right'}}>
-			<Button type="submit" variant="success" className="ml-1">
-				Post Job
-			</Button>
-		</div>
-	</Form.Group>
-</Form>
+  );

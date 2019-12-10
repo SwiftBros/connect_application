@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Row, Col, Form, FormControl, Button, Container } from 'react-bootstrap';
 import { FirebaseContext, withFirebase } from './Firebase';
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
@@ -95,9 +96,8 @@ const Admin = withFirebase(AdminPage);
 		render() {
 			return (
 				<div>
-				<h1>SignUp</h1>
+				<h1 className="text-center">Sign Up</h1>
 				<SignUpForm />
-				<Admin />
 				</div>
 				);
 		}
@@ -176,45 +176,77 @@ class SignUpFormBase extends Component {
 
 		return (
 
-			<form onSubmit={this.onSubmit}>
-			<input
-			name="username"
-			value={username}
-			onChange={this.onChange}
-			type="text"
-			placeholder="Full Name"
-			/>
-			<input
-			name="email"
-			value={email}
-			onChange={this.onChange}
-			type="text"
-			placeholder="Email Address"
-			/>
-			<input
-			name="passwordOne"
-			value={passwordOne}
-			onChange={this.onChange}
-			type="password"
-			placeholder="Password"
-			/>
-			<input
-			name="passwordTwo"
-			value={passwordTwo}
-			onChange={this.onChange}
-			type="password"
-			placeholder="Confirm Password"
-			/>
-			<p>User Type:</p>
-			<div onChange={this.setUserType}>
-			  <input type="radio" id="Youth" name="usertype" value="Youth" checked />
-			  <label for="Youth">Youth</label>
-			  <input type="radio" id="Client" name="usertype" value="Client" />
-			  <label for="Client">Client</label>
-			</div>
-			<button  disabled={isInvalid} type="submit">Sign Up</button>
-			{error && <p>{error.message}</p>}
-			</form>
+			<Container>
+				<Row>
+					<Col xs={4}>
+					</Col>
+
+					<Col xs={4}>
+					<Form onsubmit={this.onSubmit}>
+						<Form.Group controlId="formUsername">
+							<Form.Label>Username</Form.Label>
+							<Form.Control
+								name="username"
+								value={username}
+								onChange={this.onChange}
+								type="text"
+								placeholder="Full Name"
+							>
+							</Form.Control>
+						</Form.Group>
+
+						<Form.Group controlId="formEmail">
+							<Form.Label>Email</Form.Label>
+							<Form.Control
+								name="email"
+								value={email}
+								onChange={this.onChange}
+								type="text"
+								placeholder="Email Address"
+							>
+							</Form.Control>
+						</Form.Group>
+
+						<Form.Group controlId="formPasswordOne">
+							<Form.Label>Password</Form.Label>
+							<Form.Control
+								name="passwordOne"
+								value={passwordOne}
+								onChange={this.onChange}
+								type="password"
+								placeholder="password"
+							>
+							</Form.Control>
+						</Form.Group>
+
+						<Form.Group controlId="formPasswordTwo">
+							<Form.Label>Confirm password</Form.Label>
+							<Form.Control
+								name="passwordTwo"
+								value={passwordTwo}
+								onChange={this.onChange}
+								type="password"
+								placeholder="Confirm password"
+							>
+							</Form.Control>
+						</Form.Group>
+
+						<p>User Type:</p>
+						<div onChange={this.setUserType}>
+							<input type="radio" id="Youth" name="usertype" value="Youth" checked />
+							<label for="Youth">&nbsp;Youth</label>
+							<input className="ml-2" type="radio" id="Client" name="usertype" value="Client" />
+							<label for="Client">&nbsp;Client</label>
+						</div>
+						<Button disabled={isInvalid} type="submit">Sign Up</Button>
+						{error && <p>{error.message}</p>}
+					</Form>
+					</Col>
+
+					<Col xs={4}>
+					</Col>
+				</Row>
+			</Container>
 			);
 	}
 }

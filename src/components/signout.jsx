@@ -2,6 +2,7 @@ import React from 'react';
 import { withFirebase } from './Firebase';
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
+import {Button} from 'react-bootstrap';
 
 // const SignOutButton = ({ firebase }) => (
 // 	<button type="button" onClick={firebase.doSignOut}>
@@ -21,14 +22,14 @@ class SignOutButtonBase extends React.Component {
 	}
 	render() {
 		return (
-			<button type="button" onClick={this.onClicked}>
+			<Button className="float-right" onClick={this.onClicked}>
 			Sign Out
-			</button>
+			</Button>
 			);
 	}
 }
 
 // const SingoutButton = SignOutButtonClass({ firebase })
 
-const SignOutButton = compose(withRouter, withFirebase)(SignOutButtonBase); 
+const SignOutButton = compose(withRouter, withFirebase)(SignOutButtonBase);
 export default SignOutButton;

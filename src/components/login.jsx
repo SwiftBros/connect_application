@@ -2,6 +2,7 @@
 /* global gapi */
 
 import React, { Component } from 'react';
+import { Row, Col, Form, FormControl, Button, Container, Modal } from 'react-bootstrap';
 import { FirebaseContext, withFirebase } from './Firebase';
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
@@ -15,7 +16,7 @@ import { compose } from 'recompose';
 // import * as ROUTES from '../../constants/routes';
 const SignInPage = () => (
   <div>
-  <h1>SignIn</h1>
+  <h1 className="text-center">Login</h1>
   <SignInForm />
   </div>
   );
@@ -48,26 +49,46 @@ class SignInFormBase extends Component {
     const { email, password, error } = this.state;
     const isInvalid = password === '' || email === '';
     return (
-      <form onSubmit={this.onSubmit}>
-      <input
-      name="email"
-      value={email}
-      onChange={this.onChange}
-      type="text"
-      placeholder="Email Address"
-      />
-      <input
-      name="password"
-      value={password}
-      onChange={this.onChange}
-      type="password"
-      placeholder="Password"
-      />
-      <button disabled={isInvalid} type="submit">
-      Sign In
-      </button>
-      {error && <p>{error.message}</p>}
-      </form>
+
+      <Container className="">
+        <Row>
+          <Col xs={4}>
+          </Col>
+          <Col s={4}>
+          <Form onSubmit={this.onSubmit}>
+            <Form.Group controlId="formEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                name="email"
+                value={email}
+                onChange={this.onChange}
+                type="text"
+                placeholder="Enter email address "
+              >
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="formPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                name="password"
+                value={password}
+                onChange={this.onChange}
+                type="password"
+                placeholder="Enter password "
+              >
+              </Form.Control>
+            </Form.Group>
+
+            <Button disabled={isInvalid} type="submit">Sign In</Button>
+            {error && <p>{error.message}</p>}
+          </Form>
+          </Col>
+          <Col xs={4}>
+          </Col>
+        </Row>
+      </Container>
+
       );
   }
 }
@@ -100,7 +121,7 @@ const SignInForm = compose(
 //       isSignedIn: false,
 //       user: '',
 //     }
-    
+
 //   }
 
 //   loadGapiAndAfterwardsInitAuth() {
@@ -120,14 +141,14 @@ const SignInForm = compose(
 
 //     const successCallback = this.onSuccess.bind(this);
 //     this.loadGapiAndAfterwardsInitAuth();
-    
+
 //     window.gapi.load('auth2', () => {
 //       this.auth2 = gapi.auth2.init({
 //         client_id: '371285410561-otenjs002su6ilqa668goh68fjmcmped.apps.googleusercontent.com',
 //       })
 
 //       // this.auth2.attachClickHandler(document.querySelector('#loginButton'), {}, this.onLoginSuccessful.bind(this))
-		
+
 //       this.auth2.then(() => {
 //         console.log('on init');
 //         this.setState({
@@ -148,7 +169,7 @@ const SignInForm = compose(
 // 			console.log("failed");
 // 		}
 //       });
-//     });    
+//     });
 
 //     window.gapi.load('signin2', function() {
 //       // Method 3: render a sign in button
@@ -164,7 +185,7 @@ const SignInForm = compose(
 //   }
 
 //   componentDidUpdate() {
-  	
+
 //   }
 
 //   onSuccess() {
@@ -203,14 +224,14 @@ const SignInForm = compose(
 //       )
 //     }
 //   }
-  
+
 //   render() {
-//     return (      
+//     return (
 //       <div className="App">
 //         <header className="App-header">
 //         <SomeComponent />
 //           <h2>Sample App.</h2>
-//           {this.getContent()}           
+//           {this.getContent()}
 //         </header>
 //       </div>
 //     );
@@ -281,7 +302,7 @@ const SignInForm = compose(
 // 	      </div>
 // 	    );
 // 	  }
-  
+
 // 	}
 // 	// render() {
 // 	//     return (
@@ -300,8 +321,8 @@ const SignInForm = compose(
 // 		  return (
 // 		    <div className="App">
 // 		        <header className="App-header">
-		    
-// 		           {this.getContent()} 
+
+// 		           {this.getContent()}
 // 		        </header>
 // 		      </div>
 // 		  );

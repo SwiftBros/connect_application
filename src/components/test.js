@@ -11,7 +11,7 @@ class SignInFormBase extends Component {
   	console.log(this.props.firebase.db.ref('jobs').on('value', snapshot => {console.log(snapshot.val())}));
   	return (
   		<div>
-  		<p>Testing Heavy</p>
+  		<p>Work In Progress</p>
   		</div>
   		);
   }
