@@ -516,16 +516,18 @@ class InputResume extends Component {
 		this.setState({text: event.target.value });
 	}
 	onApply = (event, authUser) => {
-		console.log(this.state.message);
-		var currentJob = this.props.message;
+		// console.log(this.state.message);
+		// var currentJob = this.props.message;
 		// this.props.firebase.jobs().on('value', snapshot => {
 		// 	const job = snapshot.val().key;
 		// 	console.log(job);
-		console.log(authUser);
+		// console.log(authUser);
 		// })
 		// var self = this;
+		console.log(this.props.firebase.messages());
+		console.log(userMain);
 		this.props.firebase.messages().push({
-			from: authUser.uid,
+			from: userMain,
 			to: this.props.currentUserId,
 			text: this.state.text,
 			timestamp: Date.now(),
@@ -538,10 +540,11 @@ class InputResume extends Component {
 		return (
 			<AuthUserContext.Consumer>
 				{authUser => (
+					userMain = authUser.uid,
 		<div>
 		<input type="text" value={this.state.text} onChange={this.onChange}>
 		</input>
-		<Button onClick={(event, authUser)=>this.onApply(event, authUser)}> Apply</Button>
+		<Button onClick={(event, authUser) => this.onApply(event, authUser)}> Apply</Button>
 		</div>
 		)}
 		</AuthUserContext.Consumer>

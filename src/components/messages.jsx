@@ -154,6 +154,8 @@ class MessagesBase extends Component {
 // messageObject[key]["from"] == this.state.currentUser ||
 // messageObject[key]["to"] == this.state.currentUser
 
+
+
 const MessageList = ({ messages, onRemoveMessage, onEditMessage, }) => (
 	<ul>
 	{messages.map(message => (
