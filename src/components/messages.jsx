@@ -12,8 +12,16 @@ class Messages extends Component {
 	render() {
 		return (
 			<div>
-			<h1>Messages Section</h1>
-			<AllMessages />
+				<Container>
+					<Row>
+						<Col xs={4}></Col>
+						<Col xs={8}>
+							<h1>Messages Section</h1>
+							<AllMessages />
+						</Col>
+					</Row>
+				</Container>
+
 			</div>
 			);
 	}
@@ -127,6 +135,7 @@ class MessagesBase extends Component {
 	render() {
 		console.log(this.state);
 		const { text, messages, loading, currentUser, fromList, toList } = this.state;
+
 		return (
 			<AuthUserContext.Consumer>
 			{authUser => (
