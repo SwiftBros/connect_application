@@ -7,6 +7,9 @@ import { FirebaseContext, withFirebase } from './Firebase';
 
 // Hello
 
+var show = {display: 'block'};
+var hide = {display: 'none'};
+
 class AllJobs extends Component {
 	render() {
 		return (
@@ -19,8 +22,10 @@ class AllJobs extends Component {
 
 class JobsBase extends Component {
 	constructor(props) {
+
 		super(props);
-		this.myRef = React.createRef();
+		// this.myRef = React.createRef();
+		this.myInput = null;
 		this.state = {
 			userId: '',
 			jobTitle: '',
@@ -30,9 +35,22 @@ class JobsBase extends Component {
 			timestamp: '',
 			payRate: 15,
 			loading: false,
-			jobs: [],
+			toggle: true,
 		};
 	}
+	// focusMyInput = () => {
+	// 	if (this.myInput) this.myInput.focus();
+	// }
+
+	// hideDiv = () => {
+	// 	console.log(this.myInput);
+	// }
+
+	// setMyInputRef = element => {
+	// 	this.myInput = element;
+	// 	// this.hideDiv();
+	// }
+
 	componentDidMount() {
 		this.setState({ loading: true });
 		this.props.firebase.jobs().on('value', snapshot => {
@@ -82,28 +100,10 @@ class JobsBase extends Component {
 		event.preventDefault();
 	};
 
-	toggleJobForm() {
-		// const node = ReactDOM.findDOMNode(this);
-		// console.log(node);
-		// console.log("IN TOGGLE");
-		// if (node instanceof HTMLElement) {
-		// 	const child = node.querySelector('#jobForm');
-		//
-		// 	if (child.style.display === "block" || child.style.display === "inline") {
-		// 		child.style.display = "none";
-		// 		console.log("TOGGLING");
-		// 	} else {
-		// 		child.style.display = "block";
-		// 		console.log("GGGGGG");
-		// 	}
-		// }
+	toggleJobForm = () => {
 
-		console.log("IN TOGGLE");
-		if (this.myRef.style.display === "block") {
-			this.myRef.style.display = "none";
-		} else {
-			this.myRef.style.display = "block";
-		}
+		this.setState({toggle: !this.state.toggle})
+		console.log(this.state);
 	}
 
 	render() {
@@ -125,7 +125,7 @@ class JobsBase extends Component {
 						</div>
 					</div>
 
-					<div id="jobForm" ref={c => (this._input = c)}>
+					<div id="jobForm" style={self.state.toggle === true ? show : hide} >
 						<Container className="mt-5">
 							<Row>
 								<Col xs={4}>
