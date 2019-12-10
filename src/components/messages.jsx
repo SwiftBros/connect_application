@@ -3,6 +3,9 @@ import { compose } from 'recompose';
 import { withAuthentication, AuthUserContext } from './Session';
 import { withFirebase } from './Firebase';
 
+// Matt's libraries
+import { Row, Col, Form, FormControl, Button, Container, Modal } from 'react-bootstrap';
+
 var currUser = '';
 
 class Messages extends Component {
