@@ -95,6 +95,7 @@ class JobsBase extends Component {
 					) : (
 						<div>There are no messages ...</div>
 				)}
+				<br />
 				<form onSubmit={event => this.onCreateMessage(event, authUser)}>
 					<input
 					type="text"
@@ -145,6 +146,8 @@ class JobsBase extends Component {
 
 	}
 }
+
+const JobOuter = withFirebase(JobsBase);
 
 const MessageList = ({ messages, firebase, onRemoveMessage }) => (
 	<div>
@@ -354,7 +357,7 @@ class MessageItem extends Component {
 							</Col>
 
 							<Col>
-								<span style={ payRate }>{ job.payRate }</span>
+								<span style={ payRate }>${ job.payRate }</span>
 							</Col>
 						</Row>
 
@@ -379,9 +382,7 @@ class MessageItem extends Component {
 			// text: this.state.message,
 			// sentAt: this.props.firebase.serverValue.TIMESTAMP,
 
-const MessageItemWithFirebase = withFirebase(MessageItem)
-
-const JobOuter = withFirebase(JobsBase);
+const MessageItemWithFirebase = withFirebase(MessageItem);
 
 // const MessageItem = ({ message }) => (
 // 	<li>
@@ -842,14 +843,14 @@ export class Jobs extends React.Component {
 	render() {
 
 
-		// var items = [];
-		// for (var i = 0; i < 1; i++) {
-		// 	items.push(
-		// 		<Col xs={4} className="mt-3">
-		// 			<JobPosting />
-		// 		</Col>
-		// 	)
-		// }
+		var items = [];
+		for (var i = 0; i < 2; i++) {
+			items.push(
+				<Col xs={4} className="mt-3">
+					<JobPosting />
+				</Col>
+			)
+		}
 		return (
 			<div>
 				<AllJobs />
@@ -857,18 +858,7 @@ export class Jobs extends React.Component {
 
 				<Container>
 					<Row>
-						<Col xs={4} className="mt-3">
-							<JobPosting />
-						</Col>
-						<Col xs={4} className="mt-3">
-							<JobPosting />
-						</Col>
-						<Col xs={4} className="mt-3">
-							<JobPosting />
-						</Col>
-						<Col xs={4} className="mt-3">
-							<JobPosting />
-						</Col>
+						{ items }
 					</Row>
 				</Container>
 			</div>
