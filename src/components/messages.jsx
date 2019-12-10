@@ -15,7 +15,7 @@ class Messages extends Component {
 				<Container>
 					<Row>
 						<Col xs={4}></Col>
-						<Col xs={8}>
+						<Col xs={4}>
 							<h1>Messages Section</h1>
 							<AllMessages />
 						</Col>
@@ -169,12 +169,12 @@ class MessagesBase extends Component {
 
 
 const MessageList = ({ messages, onRemoveMessage, onEditMessage, }) => (
-	<ul>
+	<div>
 	{messages.map(message => (
 		<MessageItemWithFirebase key={message.uid} message={message}
 		 onEditMessage={onEditMessage} onRemoveMessage={onRemoveMessage} />
 		))}
-	</ul>
+	</div>
 	);
 
 // class MessageList extends Component {
@@ -304,7 +304,7 @@ class MessageItem extends Component {
 		return (
 			<AuthUserContext.Consumer>
 			{authUser => (
-				<li>
+				<div className="mb-3">
 				{editMode ? (
 					<input
 					type="text"
@@ -313,12 +313,18 @@ class MessageItem extends Component {
 					/>
 					) : (
 					<div>
-						<div>From: {this.state.fromList[0]}</div>
-						<div>To: {this.state.toList[0]}</div>
-						<p>
-							<br />
-							<strong>{message.userId}{message.text}</strong>
-						</p>
+						<Container className="bg-light border border-light rounded">
+							<Row>
+								<Col>
+									<div>From: {this.state.fromList[0]}</div>
+									<div>To: {this.state.toList[0]}</div>
+									<p>
+										<br />
+										<strong>{message.userId}{message.text}</strong>
+									</p>
+								</Col>
+							</Row>
+						</Container>
 					</div>
 				)}
 
@@ -354,7 +360,7 @@ class MessageItem extends Component {
 					</button>
 				</span>
 				)}
-				</li>
+				</div>
 			)}
 		</ AuthUserContext.Consumer>
 	);
