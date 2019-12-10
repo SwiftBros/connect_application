@@ -295,51 +295,58 @@ class MessageItem extends Component {
 		return (
 			<AuthUserContext.Consumer>
 			{authUser => (
-		<li>
-		{editMode ? (
-			<input
-			type="text"
-			value={editText}
-			onChange={this.onChangeEditText}
-			/>
-			) : (
-			<span>
-			<strong>{message.userId}</strong> {message.text}
-			<p>From {this.state.fromList[0]}</p>
-			<p>To {this.state.toList[0]}</p>
-			</span>
-		)}
-		{editMode ? (
+				<li>
+				{editMode ? (
+					<input
+					type="text"
+					value={editText}
+					onChange={this.onChangeEditText}
+					/>
+					) : (
+					<div>
+						<div>From: {this.state.fromList[0]}</div>
+						<div>To: {this.state.toList[0]}</div>
+						<p>
+							<br />
+							<strong>{message.userId}{message.text}</strong>
+						</p>
+					</div>
+				)}
+
+				{editMode ? (
+						<span>
+						<button onClick={this.onSaveEditText}>Save</button>
+						<button onClick={this.onToggleEditMode}>Reset</button>
+						</span>
+						) : (
+						<button onClick={this.onToggleEditMode}>Edit</button>
+				)}
+
+				{!editMode && (
 				<span>
-				<button onClick={this.onSaveEditText}>Save</button>
-				<button onClick={this.onToggleEditMode}>Reset</button>
+					<button
+					type="button"
+					onClick={() => onRemoveMessage(message.uid)}
+					>
+					Delete
+					</button>
+
+					<input
+					type="text"
+					value={replyText}
+					onChange={this.onReplyTextChanged}
+					/>
+
+					<button
+					type="button"
+					onClick={event => this.onReply(event, authUser)}
+					>
+					Send
+					</button>
 				</span>
-				) : (
-				<button onClick={this.onToggleEditMode}>Edit</button>
-		)}
-		{!editMode && (
-		<span>
-		<button
-		type="button"
-		onClick={() => onRemoveMessage(message.uid)}
-		>
-		Delete
-		</button>
-		<input
-		type="text"
-		value={replyText}
-		onChange={this.onReplyTextChanged}
-		/>
-		<button
-		type="button"
-		onClick={event => this.onReply(event, authUser)}
-		>
-		Send
-		</button>
-		</span>
-		)}
-		</li>
-		)}
+				)}
+				</li>
+			)}
 		</ AuthUserContext.Consumer>
 	);
 	}
