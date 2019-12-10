@@ -182,7 +182,7 @@ class SignUpFormBase extends Component {
 					</Col>
 
 					<Col xs={4}>
-					<Form onsubmit={this.onSubmit}>
+					<Form onSubmit={this.onSubmit}>
 						<Form.Group controlId="formUsername">
 							<Form.Label>Username</Form.Label>
 							<Form.Control
