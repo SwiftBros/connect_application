@@ -288,7 +288,7 @@ class MessageItem extends Component {
 
 							<div>
 								<span className="font-weight-bold">Posted: </span>
-								<span>{ Date(job.timestamp).toString().substring(0, 16) }</span>
+								<span>{ Date(job.timestamp).toString().substring(4, 16) }</span>
 							</div>
 
 							<div>
@@ -353,7 +353,11 @@ class MessageItem extends Component {
 
 						<Row>
 							<Col>
-								<span style={ timestamp }>12/07/2019</span>
+								<span style={ timestamp }>
+								{
+									Date(job.timestamp).toString().substring(4, 16)
+								}
+								</span>
 							</Col>
 
 							<Col>
