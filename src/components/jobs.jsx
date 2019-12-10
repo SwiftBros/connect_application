@@ -73,7 +73,7 @@ class JobsBase extends Component {
 			jobLocation: this.state.jobLocation,
 			jobSummary: this.state.jobSummary,
 			jobDescription: this.state.jobDescription,
-			timestamp: 'timestamp',
+			timestamp: Date.now(),
 			payRate: this.state.payRate,
 			messages: "Placeholder",
 		});
@@ -288,7 +288,7 @@ class MessageItem extends Component {
 
 							<div>
 								<span className="font-weight-bold">Posted: </span>
-								<span>12/07/2019</span>
+								<span>{ Date(job.timestamp).toString().substring(0, 16) }</span>
 							</div>
 
 							<div>
