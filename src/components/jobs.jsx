@@ -35,7 +35,7 @@ class JobsBase extends Component {
 			timestamp: '',
 			payRate: 15,
 			loading: false,
-			toggle: true,
+			toggle: false,
 		};
 	}
 	// focusMyInput = () => {
@@ -97,6 +97,7 @@ class JobsBase extends Component {
 			messages: "Placeholder",
 		});
 		this.setState({ text: '' });
+		this.toggleJobForm();
 		event.preventDefault();
 	};
 
@@ -124,88 +125,6 @@ class JobsBase extends Component {
 							<Button onClick={self.toggleJobForm}variant="primary">Post a Job</Button>
 						</div>
 					</div>
-
-					<div id="jobForm" style={self.state.toggle === true ? show : hide} >
-						<Container className="mt-5">
-							<Row>
-								<Col xs={4}>
-								</Col>
-								<Col s={4}>
-									<Form onSubmit={event => self.onCreateMessage(event, self.authUser)}>
-										<Form.Group controlId="formJobTitle">
-											<Form.Label>Job Title</Form.Label>
-											<Form.Control
-												type="text"
-												name="jobTitle"
-												placeholder="Enter a job title"
-												value={jobTitle}
-												onChange={self.onChangeText}
-											>
-											</Form.Control>
-										</Form.Group>
-
-										<Form.Group controlId="formJobLocation">
-											<Form.Label>Job Location</Form.Label>
-											<Form.Control
-												type="text"
-												name="jobLocation"
-												placeholder="Where is this job located?"
-												value={jobLocation}
-												onChange={self.onChangeText}
-											>
-											</Form.Control>
-										</Form.Group>
-
-										<Form.Group controlId="formJobSummary">
-											<Form.Label>Job Summary</Form.Label>
-											<Form.Control
-												type="text"
-												name="jobSummary"
-												placeholder="Provide a short summary"
-												value={jobSummary}
-												onChange={self.onChangeText}
-											>
-											</Form.Control>
-										</Form.Group>
-
-										<Form.Group controlId="formJobDescription">
-											<Form.Label>Job Description</Form.Label>
-											<Form.Control
-												as="textarea"
-												rows="8"
-												name="jobDescription"
-												placeholder="Provide the job description, requirements, etc."
-												value={jobDescription}
-												onChange={self.onChangeText}
-											>
-											</Form.Control>
-										</Form.Group>
-
-										<Form.Group controlId="formPayRate">
-											<Form.Label>Pay Rate ($)</Form.Label>
-											<Form.Control
-												type="text"
-												name="payRate"
-												placeholder="Enter the pay rate"
-												value={payRate}
-												onChange={self.onChangeText}
-											>
-											</Form.Control>
-											<br />
-											<div style={{float: 'right'}}>
-												<Button type="submit" variant="success" className="ml-1">
-													Post Job
-												</Button>
-											</div>
-										</Form.Group>
-									</Form>
-								</Col>
-								<Col xs={4}>
-								</Col>
-							</Row>
-						</Container>
-					</div>
-					<hr />
 				</div>
 
 
@@ -217,6 +136,87 @@ class JobsBase extends Component {
 			{authUser => (
 			<div>
 				<JobsPageHeader />
+				<div id="jobForm" style={this.state.toggle === true ? show : hide} >
+					<Container className="mt-5">
+						<Row>
+							<Col xs={4}>
+							</Col>
+							<Col s={4}>
+							<Form onSubmit={event => this.onCreateMessage(event, authUser)}>
+								<Form.Group controlId="formJobTitle">
+									<Form.Label>Job Title</Form.Label>
+									<Form.Control
+										type="text"
+										name="jobTitle"
+										placeholder="Enter a job title"
+										value={jobTitle}
+										onChange={this.onChangeText}
+									>
+									</Form.Control>
+								</Form.Group>
+
+								<Form.Group controlId="formJobLocation">
+									<Form.Label>Job Location</Form.Label>
+									<Form.Control
+										type="text"
+										name="jobLocation"
+										placeholder="Where is this job located?"
+										value={jobLocation}
+										onChange={this.onChangeText}
+									>
+									</Form.Control>
+								</Form.Group>
+
+								<Form.Group controlId="formJobSummary">
+									<Form.Label>Job Summary</Form.Label>
+									<Form.Control
+										type="text"
+										name="jobSummary"
+										placeholder="Provide a short summary"
+										value={jobSummary}
+										onChange={this.onChangeText}
+									>
+									</Form.Control>
+								</Form.Group>
+
+								<Form.Group controlId="formJobDescription">
+									<Form.Label>Job Description</Form.Label>
+									<Form.Control
+										as="textarea"
+										rows="8"
+										name="jobDescription"
+										placeholder="Provide the job description, requirements, etc."
+										value={jobDescription}
+										onChange={this.onChangeText}
+									>
+									</Form.Control>
+								</Form.Group>
+
+								<Form.Group controlId="formPayRate">
+									<Form.Label>Pay Rate ($)</Form.Label>
+									<Form.Control
+										type="text"
+										name="payRate"
+										placeholder="Enter the pay rate"
+										value={payRate}
+										onChange={this.onChangeText}
+									>
+									</Form.Control>
+									<br />
+									<div style={{float: 'right'}}>
+										<Button type="submit" variant="success" className="ml-1">
+											Post Job
+										</Button>
+									</div>
+								</Form.Group>
+							</Form>
+							</Col>
+							<Col xs={4}>
+							</Col>
+						</Row>
+					</Container>
+				</div>
+				<hr />
 				{loading && <div>Loading ...</div>}
 
 				{jobs ? (
