@@ -4,6 +4,7 @@ import { Row, Col, Form, FormControl, Button, Container, Modal } from 'react-boo
 import { withAuthentication, AuthUserContext } from './Session';
 import { compose } from 'recompose';
 import { FirebaseContext, withFirebase } from './Firebase';
+import { Link, withRouter } from 'react-router-dom';
 
 // Hello
 
@@ -537,7 +538,7 @@ class InputResume extends Component {
 			timestamp: Date.now(),
 		});
 		alert('Your Application has been submitted!');
-
+		this.props.history.push('/messages');
 		event.preventDefault();
 	}
 
@@ -550,7 +551,7 @@ class InputResume extends Component {
 					userMain = authUser.uid,
 		<div>
 
-		<Form className="form-inline">
+		<Form className="form-inline" >
 			<Form.Group>
 			<Form.Control
 				type="text"
@@ -568,7 +569,7 @@ class InputResume extends Component {
 	}
 }
 
-const InputResumeFirebase = withFirebase(InputResume);
+const InputResumeFirebase = compose(withFirebase, withRouter)(InputResume);
 
 
 			// from: authUser.uid,

@@ -127,11 +127,13 @@ class SignUpFormBase extends Component {
 		this.state = { ...INITIAL_STATE };
 	}
 	onSubmit = event => {
+		var self = this;
 		const { username, email, passwordOne, messages, usertype } = this.state;
 		this.props.firebase
 		.doCreateUserWithEmailAndPassword(email, passwordOne)
 		.then(authUser => {
 			// Create a user in your Firebase realtime database
+			this.props.history.push('/');
 			return this.props.firebase
 			.user(authUser.user.uid)
 			.set({
@@ -140,11 +142,11 @@ class SignUpFormBase extends Component {
 				usertype,
 				messages,
 			});
-			this.props.history.push('/');
+
 		})
 		.then(() => {
 			this.setState({ ...INITIAL_STATE });
-			this.props.history.push('/');
+			// self.props.history.push('/');
 		})
 		.catch(error => {
 			this.setState({ error });
