@@ -551,12 +551,13 @@ class InputResume extends Component {
 					userMain = authUser.uid,
 		<div>
 
-		<Form className="form-inline" >
+		<Form className="form-inline" style={{}} >
 			<Form.Group>
 			<Form.Control
 				type="text"
 				value={this.state.text}
 				onChange={this.onChange}
+				style={{height: 100}}
 			>
 			</Form.Control>
 			<Button className="ml-2" onClick={(event, authUser) => this.onApply(event, authUser)}> Apply</Button>
